@@ -38,8 +38,13 @@ class AddLayerDlg(QtWidgets.QDialog, FORM_CLASS):
         # initialize all providers
         self.__provider_pool = {}
         provider_fac = BaseMapFactory()
+        # GaoDe Provider
         amap_provider = provider_fac.create_amap_provider(iface)
         self.__provider_pool[amap_provider.provider_name()] = amap_provider
+        # Tencent Provider
+        tencent_provider = provider_fac.create_tencent_provider(iface)
+        self.__provider_pool[tencent_provider.provider_name()] = tencent_provider
+
         self.__build_list_by_provider_pool()
 
         self.__setting_widget = None

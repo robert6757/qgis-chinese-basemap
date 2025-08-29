@@ -21,6 +21,7 @@
 """
 
 from .amap_basemap_provider import AMapBasemapProvider
+from .tencent_basemap_provider import TencentBasemapProvider
 
 class BaseMapFactory:
 
@@ -30,5 +31,11 @@ class BaseMapFactory:
     @staticmethod
     def create_amap_provider(iface):
         bp = AMapBasemapProvider()
+        bp.attach_iface(iface)
+        return bp
+
+    @staticmethod
+    def create_tencent_provider(iface):
+        bp = TencentBasemapProvider()
         bp.attach_iface(iface)
         return bp

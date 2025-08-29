@@ -72,10 +72,6 @@ class AMapBasemapProvider(AbstractBasemapProvider):
 
     def make_setting_widget(self):
         """provide specific settings and basemap template"""
-        if self.setting_form is not None and self.setting_widget is not None:
-            # return existing widget.
-            return self.setting_widget
-
         generated_class, base_class = uic.loadUiType(os.path.join(
             os.path.dirname(__file__), '../ui/AMapSettingWidget.ui'))
         if generated_class is None or base_class is None:
