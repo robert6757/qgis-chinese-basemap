@@ -29,7 +29,7 @@ from .resources import *
 import os.path
 from .main import AddLayerDlg
 
-class ChineseBasemap:
+class ChineseBasemap():
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
@@ -45,7 +45,7 @@ class ChineseBasemap:
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
-        locale = QSettings().value('locale/userLocale')[0:2]
+        locale = QSettings().value('locale/userLocale')
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
@@ -58,7 +58,7 @@ class ChineseBasemap:
 
         # Declare instance attributes
         self.actions = []
-        self.menu = self.tr(u'&Chinese Resource')
+        self.menu = self.tr(u'Chinese Resource')
 
         # Check if plugin was started the first time in current QGIS session
         # Must be set in initGui() to survive plugin reloads
@@ -78,7 +78,6 @@ class ChineseBasemap:
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('ChineseBasemap', message)
-
 
     def add_action(
         self,
@@ -172,7 +171,7 @@ class ChineseBasemap:
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginMenu(
-                self.tr(u'&Chinese Basemap'),
+                self.tr(u'Chinese Basemap'),
                 action)
             self.iface.removeToolBarIcon(action)
 
