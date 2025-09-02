@@ -5,14 +5,14 @@
 [general]
 name=Chinese Basemap
 qgisMinimumVersion=3.0
-description=This plugin supply multiple datasource of basemap in China.
+description=This plugin provides multiple basemap datasource for China.
 version=0.1
 author=phoenix-gis
 email=phoenixgis@sina.com
 
-about=This plugin supply multiple datasource of basemap in China.本插件提供多种中文底图数据源，包括高德地图、腾讯地图、星图地球等。
+about=This plugin provides multiple basemap datasource for China.本插件提供多种中文底图数据源，包括高德地图、腾讯地图、星图地球等。
 
-tracker=https://www.phoenix-gis.cn/
+tracker=https://www.phoenix-gis.cn/d/224-qgischa-jian-shi-yong-wen-ti-hui-zong
 repository=https://github.com/robert6757/qgis-chinese-basemap
 # End of mandatory metadata
 
