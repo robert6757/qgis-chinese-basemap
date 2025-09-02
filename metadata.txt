@@ -10,7 +10,7 @@ version=0.1
 author=phoenix-gis
 email=phoenixgis@sina.com
 
-about=This plugin supply multiple datasource of basemap in China.
+about=This plugin supply multiple datasource of basemap in China.本插件提供多种中文底图数据源，包括高德地图、腾讯地图、星图地球等。
 
 tracker=https://www.phoenix-gis.cn/
 repository=https://github.com/robert6757/qgis-chinese-basemap
