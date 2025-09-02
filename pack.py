@@ -29,15 +29,16 @@ def main_i():
     config = configparser.ConfigParser()
     config.read(current_dir.joinpath("metadata.txt"), encoding="UTF-8")
     version = config.get("general", "version")
-    filename = f"qgis-chinese-basemap-{version}.zip"
+    filename = f"chinese_basemap_{version}.zip"
 
     # zip the dist directory.
-    dist_filepath = current_dir.joinpath("dist")
-    dest_zip_filepath = current_dir.joinpath(filename)
+    dist_dir = current_dir.joinpath("dist")
+    package_folder = dist_dir.joinpath("chinese_basemap")
+    dest_zip_filepath = dist_dir.joinpath(filename)
     with zipfile.ZipFile(dest_zip_filepath, "w", zipfile.ZIP_DEFLATED) as zipf:
-        for file in dist_filepath.glob("**/*"):
-            zipf.write(file, file.relative_to(dist_filepath.parent))
-    print(f"pack finish: {filename}")
+        for file in package_folder.glob("**/*"):
+            zipf.write(file, file.relative_to(package_folder.parent))
+    print(f"pack finish: {dest_zip_filepath}")
 
 if __name__ == "__main__":
     main_i()
