@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/plugins/chinese basemap" >
-        <file>icon.png</file>
-    </qresource>
+  <qresource prefix="/plugins/chinesebasemap">
+    <file>icon.png</file>
+  </qresource>
 </RCC>

@@ -21,9 +21,11 @@
 """
 
 import os
+import webbrowser
 
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
+from qgis.core import QgsApplication
 
 from .basemap_factory import BaseMapFactory
 
@@ -35,6 +37,11 @@ class AddLayerDlg(QtWidgets.QDialog, FORM_CLASS):
         super(AddLayerDlg, self).__init__(parent)
         self.setupUi(self)
 
+        self.init_widget_style()
+
+        self.__setting_widget = None
+        self.__selected_provider = None
+
         # initialize all providers
         self.__provider_pool = {}
         provider_fac = BaseMapFactory()
@@ -44,11 +51,34 @@ class AddLayerDlg(QtWidgets.QDialog, FORM_CLASS):
         # Tencent Provider
         tencent_provider = provider_fac.create_tencent_provider(iface)
         self.__provider_pool[tencent_provider.provider_name()] = tencent_provider
+        # Geovis Earth Provider
+        geovis_provider = provider_fac.create_geovis_provider(iface)
+        self.__provider_pool[geovis_provider.provider_name()] = geovis_provider
 
         self.__build_list_by_provider_pool()
 
-        self.__setting_widget = None
-        self.__selected_provider = None
+        # select first provider.
+        self.listDataSource.setCurrentRow(0)
+        self.handleClickDataSource(self.listDataSource.item(0))
+
+    def init_widget_style(self):
+
+        dlg_style_sheet = """
+            QListWidget#listDataSource{
+            background-color: rgb(69, 69, 69);
+            outline: 0;
+            }
+            QListWidget#listDataSource::item{
+            color: white;
+            padding: {0}px;
+            }
+            QListWidget#listDataSource::item::selected{
+            color: palette(window-text);
+            background-color:palette(window);
+            padding-right: 0px;
+            }"""
+        dlg_style_sheet = dlg_style_sheet.replace('{0}', str(QgsApplication.scaleIconSize(5)))
+        self.setStyleSheet(dlg_style_sheet)
 
     def handleClickClose(self):
         self.close()
@@ -56,16 +86,19 @@ class AddLayerDlg(QtWidgets.QDialog, FORM_CLASS):
     def handleClickAdd(self):
         if self.__selected_provider is None:
             return
-        self.__selected_provider.add_basemap_to_qgis()
+        if self.__selected_provider.add_basemap_to_qgis() is False:
+            return
         self.close()
 
     def handleClickHelp(self):
-        pass
+        url = "https://www.phoenix-gis.cn/d/224-qgischa-jian-shi-yong-wen-ti-hui-zong"
+        webbrowser.open(url)
 
     def handleClickDataSource(self, clickedItem):
         # clear previous variable.
         if self.__setting_widget is not None:
             self.settingWidgetLayout.removeWidget(self.__setting_widget)
+            self.__setting_widget.close()
             self.__setting_widget = None
         self.__selected_provider = None
 
@@ -80,6 +113,12 @@ class AddLayerDlg(QtWidgets.QDialog, FORM_CLASS):
 
         self.__setting_widget = setting_widget
         self.__selected_provider = provider
+
+    def unload(self):
+        for key in self.__provider_pool.keys():
+            self.__provider_pool[key].unload()
+
+        self.close()
 
     def __build_list_by_provider_pool(self):
         for provider in self.__provider_pool.values():

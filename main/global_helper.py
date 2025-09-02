@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
-                               AbstractBasemapProvider
- Datasource provider base class defining some basic function.
+                               GlobalHelper
+ supply some significant function for global environment.
 
-        begin                : 2025-08-19
+        begin                : 2025-09-01
         copyright            : (C) 2025 by phoenix-gis
         email                : phoenixgis@sina.com
         website              : phoenix-gis.cn
@@ -20,36 +20,24 @@
  ***************************************************************************/
 """
 
-from abc import ABC, abstractmethod
 
+from qgis.PyQt.QtCore import QCoreApplication
 
-class AbstractBasemapProvider(ABC):
-    @abstractmethod
-    def attach_iface(self, iface):
-        """attach qgis python interface."""
+class GlobalHelper():
+    def __init__(self):
         pass
 
-    @abstractmethod
-    def provider_name(self):
-        """name of provider identified by the provider pool."""
-        pass
+    @staticmethod
+    def tr(context, message):
+        """Get the translation for a string using Qt translation API.
 
-    @abstractmethod
-    def provider_icon(self):
-        """icon of provider is shown on the list widget"""
-        pass
+        We implement this ourselves since we do not inherit QObject.
 
-    @abstractmethod
-    def make_setting_widget(self):
-        """provider specific settings and basemap template"""
-        pass
+        :param message: String for translation.
+        :type message: str, QString
 
-    @abstractmethod
-    def add_basemap_to_qgis(self):
-        """add the selected template of basemap to qgis central canvas."""
-        pass
-
-    @abstractmethod
-    def unload(self):
-        """unload this provider"""
-        pass
+        :returns: Translated version of message.
+        :rtype: QString
+        """
+        # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
+        return QCoreApplication.translate(context, message)

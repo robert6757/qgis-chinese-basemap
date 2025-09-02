@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
-                               AMapBasemapProvider
- Implemented class based on AMap(GaoDe).
+                               TencentBasemapProvider
+ Implemented class based on Tencent map.
 
-        begin                : 2025-08-19
+        begin                : 2025-08-29
         copyright            : (C) 2025 by phoenix-gis
         email                : phoenixgis@sina.com
         website              : phoenix-gis.cn
@@ -25,7 +25,7 @@ from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtCore
-from qgis.core import QgsProject, QgsRasterLayer, QgsHueSaturationFilter
+from qgis.core import QgsProject, QgsRasterLayer
 
 from .abstract_basemap_provider import AbstractBasemapProvider
 
@@ -52,7 +52,8 @@ class TencentBasemapProvider(AbstractBasemapProvider):
         pass
 
     def handleItemDClicked(self, item):
-        self.add_basemap_to_qgis()
+        if self.add_basemap_to_qgis() is False:
+            return
         self.setting_widget.parent().parent().close()
 
     def make_setting_widget(self):
@@ -89,4 +90,7 @@ class TencentBasemapProvider(AbstractBasemapProvider):
                 QgsProject.instance().addMapLayer(layer)
 
         return True
+
+    def unload(self):
+        pass
 

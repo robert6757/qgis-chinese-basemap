@@ -67,7 +67,8 @@ class AMapBasemapProvider(AbstractBasemapProvider):
         pass
 
     def handleItemDClicked(self, item):
-        self.add_basemap_to_qgis()
+        if self.add_basemap_to_qgis() is False:
+            return
         self.setting_widget.parent().parent().close()
 
     def make_setting_widget(self):
@@ -92,7 +93,7 @@ class AMapBasemapProvider(AbstractBasemapProvider):
     def add_basemap_to_qgis(self):
         """add the selected template of basemap to qgis central canvas."""
         selected_basemap_item = self.setting_form.listWidget.currentItem()
-        if selected_basemap_item == None:
+        if selected_basemap_item is None:
             return False
 
         basemap_name = selected_basemap_item.text()
@@ -135,7 +136,7 @@ class AMapBasemapProvider(AbstractBasemapProvider):
                 '高德矢量-凸显', 'wms')
             if not layer.isValid():
                 return False
-            layer.brightnessFilter().setGamma(0.1)
+            layer.brightnessFilter().setGamma(0.3)
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "高德矢量底图-凸显-无注记":
             layer = QgsRasterLayer(
@@ -143,7 +144,7 @@ class AMapBasemapProvider(AbstractBasemapProvider):
                 '高德矢量-凸显-无注记', 'wms')
             if not layer.isValid():
                 return False
-            layer.brightnessFilter().setGamma(0.1)
+            layer.brightnessFilter().setGamma(0.3)
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "高德矢量底图-深色":
             layer = QgsRasterLayer(
@@ -172,7 +173,7 @@ class AMapBasemapProvider(AbstractBasemapProvider):
             layer.hueSaturationFilter().setInvertColors(True)
             layer.hueSaturationFilter().setColorizeOn(True)
             layer.hueSaturationFilter().setColorizeColor(QtGui.QColor(57,143,255))
-            layer.brightnessFilter().setGamma(0.1)
+            layer.brightnessFilter().setGamma(0.15)
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "高德矢量底图-科技蓝-无注记":
             layer = QgsRasterLayer(
@@ -183,7 +184,7 @@ class AMapBasemapProvider(AbstractBasemapProvider):
             layer.hueSaturationFilter().setInvertColors(True)
             layer.hueSaturationFilter().setColorizeOn(True)
             layer.hueSaturationFilter().setColorizeColor(QtGui.QColor(57, 143, 255))
-            layer.brightnessFilter().setGamma(0.1)
+            layer.brightnessFilter().setGamma(0.15)
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "高德矢量底图-灰色":
             layer = QgsRasterLayer(
@@ -209,6 +210,7 @@ class AMapBasemapProvider(AbstractBasemapProvider):
                 return False
             layer.hueSaturationFilter().setGrayscaleMode(QgsHueSaturationFilter.GrayscaleLightness)
             layer.hueSaturationFilter().setInvertColors(True)
+            layer.brightnessFilter().setGamma(0.15)
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "高德矢量底图-黑色-无注记":
             layer = QgsRasterLayer(
@@ -218,6 +220,7 @@ class AMapBasemapProvider(AbstractBasemapProvider):
                 return False
             layer.hueSaturationFilter().setGrayscaleMode(QgsHueSaturationFilter.GrayscaleLightness)
             layer.hueSaturationFilter().setInvertColors(True)
+            layer.brightnessFilter().setGamma(0.15)
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "高德矢量底图-高对比度":
             layer = QgsRasterLayer(
@@ -225,7 +228,7 @@ class AMapBasemapProvider(AbstractBasemapProvider):
                 '高德矢量-高对比度', 'wms')
             if not layer.isValid():
                 return False
-            layer.brightnessFilter().setGamma(0.1)
+            layer.brightnessFilter().setGamma(0.3)
             layer.brightnessFilter().setContrast(10)
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "高德矢量底图-高对比度-无注记":
@@ -234,11 +237,14 @@ class AMapBasemapProvider(AbstractBasemapProvider):
                 '高德矢量-高对比度-无注记', 'wms')
             if not layer.isValid():
                 return False
-            layer.brightnessFilter().setGamma(0.1)
+            layer.brightnessFilter().setGamma(0.3)
             layer.brightnessFilter().setContrast(10)
             QgsProject.instance().addMapLayer(layer)
 
         return True
+
+    def unload(self):
+        pass
 
 
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>657</width>
-    <height>381</height>
+    <width>798</width>
+    <height>492</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,20 +46,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">QListWidget{
-background-color: rgb(69, 69, 69);
-outline: 0;
-}
-QListWidget::item{
-color: white;
-padding: 1;
-}
-QListWidget::item::selected{
-color: palette(window-text);
-background-color:palette(window);
-padding-right: 0px;
-}
-</string>
+      <string notr="true"/>
      </property>
      <property name="horizontalScrollBarPolicy">
       <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -123,6 +110,12 @@ padding-right: 0px;
    </item>
    <item row="1" column="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
      <item>
       <widget class="QPushButton" name="btnClose">
        <property name="text">
