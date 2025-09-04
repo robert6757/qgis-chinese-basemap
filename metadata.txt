@@ -23,7 +23,7 @@ hasProcessingProvider=no
 # changelog=
 
 # Tags are comma separated with spaces allowed
-tags=basemap basemaps raster vector datasource wmts wms xyz
+tags=basemap,basemaps,raster,vector,datasource,wmts,wms,xyz
 
 homepage=https://www.phoenix-gis.cn/
 category=Plugins
