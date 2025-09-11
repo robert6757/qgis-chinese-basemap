@@ -23,6 +23,7 @@
 from .amap_basemap_provider import AMapBasemapProvider
 from .tencent_basemap_provider import TencentBasemapProvider
 from .geovisearth_basemap_provider import GeovisEarthBasemapProvider
+from .geoviscloud_basemap_provider import GeovisCloudBasemapProvider
 
 class BaseMapFactory:
 
@@ -42,7 +43,13 @@ class BaseMapFactory:
         return bp
 
     @staticmethod
-    def create_geovis_provider(iface):
+    def create_geovisearth_provider(iface):
         bp = GeovisEarthBasemapProvider()
+        bp.attach_iface(iface)
+        return bp
+
+    @staticmethod
+    def create_geoviscloud_provider(iface):
+        bp = GeovisCloudBasemapProvider()
         bp.attach_iface(iface)
         return bp

@@ -148,7 +148,7 @@ class ChineseBasemap():
         if self.first_start == True:
             self.first_start = False
             self.maindlg = AddLayerDlg(self.iface)
-            # self.maindlg.setModal(True)
+            self.maindlg.setModal(True)
 
         # show the dialog
         self.maindlg.show()
