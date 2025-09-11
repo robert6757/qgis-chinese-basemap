@@ -122,6 +122,9 @@ class GeovisCloudBasemapProvider(AbstractBasemapProvider):
         if basemap_name == "星图云-影像图":
             url = ("https://api.open.geovisearth.com/pj/base/v1/img/%7Bz%7D%2F%7Bx%7D%2F%7By%7D?format%3Dwebp%26tmsIds%3Dw%26token%3D{0}&zmax=18&zmin=0"
                    .format(token))
+        elif basemap_name == "星图云-无水印影像图":
+            url = ("https://api.open.geovisearth.com/v2/getStreamReq/plus/v1/img?x%3D%7Bx%7D%26y%3D%7By%7D%26z%3D%7Bz%7D%26token%3D{0}"
+                   .format(token))
         elif basemap_name == "星图云-影像注记":
             url = ("https://api.open.geovisearth.com/map/v1/cia/%7Bz%7D%2F%7Bx%7D%2F%7By%7D?format%3Dpng%26tmsIds%3Dw%26token%3D{0}&zmax=18&zmin=0"
                    .format(token))
