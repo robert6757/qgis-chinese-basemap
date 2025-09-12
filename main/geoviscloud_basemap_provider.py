@@ -97,6 +97,9 @@ class GeovisCloudBasemapProvider(AbstractBasemapProvider):
         for basemap_name in self.basemap_list:
             icon = QtGui.QIcon(os.path.join(os.path.dirname(__file__), '../image/geoviscloud/%s.png' % basemap_name))
             list_item = QtWidgets.QListWidgetItem(icon, basemap_name)
+            if basemap_name == "星图云-历史影像" or basemap_name == "星图云-超分影像":
+                list_item.setToolTip(GlobalHelper.tr("GlobalHelper", u"The imagery does not cover the whole map. Please select an area by clicking and dragging."))
+
             self.setting_form.listWidget.addItem(list_item)
         return self.setting_widget
 
