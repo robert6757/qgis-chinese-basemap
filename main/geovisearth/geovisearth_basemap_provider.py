@@ -60,7 +60,7 @@ class GeovisEarthBasemapProvider(AbstractBasemapProvider):
 
     def provider_name(self):
         """name of provider is shown on the list widget"""
-        return "星图地球"
+        return GlobalHelper.tr(u"Geovis Earth")
 
     def provider_icon(self):
         """icon of provider is shown on the list widget"""
@@ -97,9 +97,9 @@ class GeovisEarthBasemapProvider(AbstractBasemapProvider):
             icon = QtGui.QIcon(os.path.join(os.path.dirname(__file__), '../../image/geovisearth/%s.png' % basemap_name))
             list_item = QtWidgets.QListWidgetItem(icon, basemap_name)
             if basemap_name == "世界土壤":
-                list_item.setToolTip(GlobalHelper.tr("GlobalHelper", u"referenced by HWSD database."))
+                list_item.setToolTip(GlobalHelper.tr( u"referenced by HWSD database."))
             elif basemap_name == "中国地区植被指数":
-                list_item.setToolTip(GlobalHelper.tr("GlobalHelper", u"referenced by SPOT-VEGETATION."))
+                list_item.setToolTip(GlobalHelper.tr( u"referenced by SPOT-VEGETATION."))
             self.setting_form.listWidget.addItem(list_item)
         return self.setting_widget
 
@@ -112,7 +112,7 @@ class GeovisEarthBasemapProvider(AbstractBasemapProvider):
         gSetting = QgsSettings()
         token = gSetting.value(self.__token_tag)
         if token is None or len(token) == 0:
-            QtWidgets.QMessageBox.warning(self.setting_widget, GlobalHelper.tr("GlobalHelper", "Warning"), GlobalHelper.tr("GlobalHelper", "Please enter a valid access token."),QtWidgets.QMessageBox.Ok)
+            QtWidgets.QMessageBox.warning(self.setting_widget, GlobalHelper.tr( "Warning"), GlobalHelper.tr( "Please enter a valid access token."),QtWidgets.QMessageBox.Ok)
             return False
 
         basemap_name = selected_basemap_item.text()

@@ -57,6 +57,9 @@ class AddLayerDlg(QtWidgets.QDialog, FORM_CLASS):
         # Geovis Cloud Provider
         geovis_cloud_provider = provider_fac.create_geoviscloud_provider(iface)
         self.__provider_pool[geovis_cloud_provider.provider_name()] = geovis_cloud_provider
+        # JiLin-1 Provider
+        jilin1_provider = provider_fac.create_jilin1_provider(iface)
+        self.__provider_pool[jilin1_provider.provider_name()] = jilin1_provider
 
         self.__build_list_by_provider_pool()
 

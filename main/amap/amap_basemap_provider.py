@@ -28,6 +28,7 @@ from qgis.PyQt import QtCore
 from qgis.core import QgsProject, QgsRasterLayer, QgsHueSaturationFilter
 
 from ..abstract_basemap_provider import AbstractBasemapProvider
+from ..global_helper import GlobalHelper
 
 class AMapBasemapProvider(AbstractBasemapProvider):
 
@@ -60,7 +61,7 @@ class AMapBasemapProvider(AbstractBasemapProvider):
 
     def provider_name(self):
         """name of provider is shown on the list widget"""
-        return "高德地图"
+        return GlobalHelper.tr(u"AMap")
 
     def provider_icon(self):
         """icon of provider is shown on the list widget"""

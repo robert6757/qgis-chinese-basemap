@@ -210,11 +210,11 @@ class GeovisCloudImageryDockWidget(QDockWidget, FORM_CLASS):
             reply_json = json.loads(reply.content().data())
         except json.decoder.JSONDecodeError:
             self.iface.messageBar().pushWarning(
-                self.tr(u"Geovis Search Error"),
+                self.tr(u"Geovis Historical-Imagery Search Error"),
                 self.tr(u"Fail to parse results responding from Geovis cloud server.")
             )
 
-        if not self.__check_response_validation(reply_json):
+        if not self.__check_response_validation(self.tr(u"Geovis Historical-Imagery Search Error"), reply_json):
             return
 
         """
@@ -283,11 +283,11 @@ class GeovisCloudImageryDockWidget(QDockWidget, FORM_CLASS):
             reply_json = json.loads(reply.content().data())
         except json.decoder.JSONDecodeError:
             self.iface.messageBar().pushWarning(
-                self.tr(u"Geovis Search Error"),
+                self.tr(u"Geovis SR-Imagery Search Error"),
                 self.tr(u"Fail to parse results responding from Geovis cloud server.")
             )
 
-        if not self.__check_response_validation(reply_json):
+        if not self.__check_response_validation(self.tr(u"Geovis SR-Imagery Search Error"), reply_json):
             return
 
         """
@@ -328,16 +328,16 @@ class GeovisCloudImageryDockWidget(QDockWidget, FORM_CLASS):
 
                 self.sr_imagery_root_node.addChild(region_node)
 
-    def __check_response_validation(self, resp_json) -> bool:
+    def __check_response_validation(self, header, resp_json) -> bool:
         if type(resp_json) is not dict:
             QMessageBox.warning(self,
-                                    self.tr(u"Geovis Response Error"),
+                                    header,
                                     self.tr(u"Your request to Geovis cloud server is unavailable."), QMessageBox.Ok)
             return False
 
         if "code" in resp_json.keys() and resp_json["code"] != 200:
             QMessageBox.warning(self,
-                                    self.tr(u"Geovis Response Error"),
+                                    header,
                                     self.tr(u"Failed to retrieve data from Geovis cloud. Please check your token's validity and remaining balance"), QMessageBox.Ok)
             return False
 

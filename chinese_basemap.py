@@ -59,7 +59,7 @@ class ChineseBasemap():
 
         # Declare instance attributes
         self.actions = []
-        self.menu = GlobalHelper.tr('ChineseBasemap',u'Chinese Resource')
+        self.menu = GlobalHelper.tr(u'Chinese Resource')
 
         # Check if plugin was started the first time in current QGIS session
         # Must be set in initGui() to survive plugin reloads
@@ -74,13 +74,13 @@ class ChineseBasemap():
         icon_path = ':/plugins/chinesebasemap/icon.png'
 
         # build custom toolbar
-        toolbar = QToolBar(GlobalHelper.tr("ChineseBasemap", u"Chinese Resource Toolbar"))
-        toolbar.setToolTip(GlobalHelper.tr("ChineseBasemap", u"Chinese Resource Toolbar"))
+        toolbar = QToolBar(GlobalHelper.tr(u"Chinese Resource Toolbar"))
+        toolbar.setToolTip(GlobalHelper.tr(u"Chinese Resource Toolbar"))
         self.iface.addToolBar(toolbar)
 
         self.add_action(
             icon_path,
-            text=GlobalHelper.tr("ChineseBasemap", u'Chinese Basemap'),
+            text=GlobalHelper.tr(u'Chinese Basemap'),
             callback=self.run,
             toolbar=toolbar,
             parent=self.iface.mainWindow())
@@ -130,7 +130,7 @@ class ChineseBasemap():
         main_window = self.iface.mainWindow()
         for action in self.actions:
             self.iface.removePluginMenu(
-                GlobalHelper.tr("ChineseBasemap", u'Chinese Resource'),
+                GlobalHelper.tr(u'Chinese Resource'),
                 action)
             self.iface.removeToolBarIcon(action)
         if self.maindlg is not None:

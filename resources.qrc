@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="/plugins/chinesebasemap">
+    <file>icon/add.svg</file>
+    <file>icon/minus.svg</file>
     <file>icon/add-layer.svg</file>
     <file>icon/clear-option.svg</file>
     <file>icon/select.svg</file>

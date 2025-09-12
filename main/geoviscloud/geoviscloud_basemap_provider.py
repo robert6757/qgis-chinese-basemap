@@ -20,7 +20,6 @@
  ***************************************************************************/
 """
 import os
-import random
 import webbrowser
 
 from qgis.PyQt import uic
@@ -61,7 +60,7 @@ class GeovisCloudBasemapProvider(AbstractBasemapProvider):
 
     def provider_name(self):
         """name of provider is shown on the list widget"""
-        return "星图云开放平台"
+        return GlobalHelper.tr(u"Geovis Cloud")
 
     def provider_icon(self):
         """icon of provider is shown on the list widget"""
@@ -98,7 +97,7 @@ class GeovisCloudBasemapProvider(AbstractBasemapProvider):
             icon = QtGui.QIcon(os.path.join(os.path.dirname(__file__), '../../image/geoviscloud/%s.png' % basemap_name))
             list_item = QtWidgets.QListWidgetItem(icon, basemap_name)
             if basemap_name == "星图云-历史影像" or basemap_name == "星图云-超分影像":
-                list_item.setToolTip(GlobalHelper.tr("GlobalHelper", u"The imagery does not cover the whole map. Please select an area by clicking and dragging."))
+                list_item.setToolTip(GlobalHelper.tr( u"The imagery does not cover the whole map. Please select an area by clicking and dragging."))
 
             self.setting_form.listWidget.addItem(list_item)
         return self.setting_widget
@@ -112,7 +111,7 @@ class GeovisCloudBasemapProvider(AbstractBasemapProvider):
         gSetting = QgsSettings()
         token = gSetting.value(self.__token_tag)
         if token is None or len(token) == 0:
-            QtWidgets.QMessageBox.warning(self.setting_widget, GlobalHelper.tr("GlobalHelper", "Warning"), GlobalHelper.tr("GlobalHelper", "Please enter a valid access token."),QtWidgets.QMessageBox.Ok)
+            QtWidgets.QMessageBox.warning(self.setting_widget, GlobalHelper.tr( "Warning"), GlobalHelper.tr( "Please enter a valid access token."),QtWidgets.QMessageBox.Ok)
             return False
 
         basemap_name = selected_basemap_item.text()
