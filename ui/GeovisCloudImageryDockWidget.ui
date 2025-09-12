@@ -31,26 +31,40 @@
      <number>3</number>
     </property>
     <item row="0" column="1">
+     <widget class="QToolButton" name="btnAddToMap">
+      <property name="toolTip">
+       <string>Add selected imagery to the map.</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/plugins/chinesebasemap/icon/add-layer.svg</normaloff>:/plugins/chinesebasemap/icon/add-layer.svg</iconset>
+      </property>
+      <property name="autoRaise">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
      <widget class="QToolButton" name="btnSelArea">
       <property name="toolTip">
        <string>Select an area by clicking and dragging on the map.</string>
       </property>
       <property name="text">
-       <string>...</string>
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/plugins/chinesebasemap/icon/select.svg</normaloff>:/plugins/chinesebasemap/icon/select.svg</iconset>
+      </property>
+      <property name="autoRaise">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QToolButton" name="btnAddToMap">
-      <property name="toolTip">
-       <string>Add selected imagery to the map.</string>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0" colspan="5">
+    <item row="1" column="0" colspan="6">
      <widget class="QTreeWidget" name="treeWidget">
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
@@ -71,11 +85,18 @@
        <string>Clear the rectangle and imagery list.</string>
       </property>
       <property name="text">
-       <string>...</string>
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/plugins/chinesebasemap/icon/clear-option.svg</normaloff>:/plugins/chinesebasemap/icon/clear-option.svg</iconset>
+      </property>
+      <property name="autoRaise">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
-    <item row="0" column="3" colspan="2">
+    <item row="0" column="3" colspan="3">
      <spacer name="horizontalSpacer">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -91,6 +112,8 @@
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -27,7 +27,7 @@ from qgis.PyQt import QtGui
 from qgis.PyQt import QtCore
 from qgis.core import QgsProject, QgsRasterLayer, QgsHueSaturationFilter
 
-from .abstract_basemap_provider import AbstractBasemapProvider
+from ..abstract_basemap_provider import AbstractBasemapProvider
 
 class AMapBasemapProvider(AbstractBasemapProvider):
 
@@ -74,7 +74,7 @@ class AMapBasemapProvider(AbstractBasemapProvider):
     def make_setting_widget(self):
         """provide specific settings and basemap template"""
         generated_class, base_class = uic.loadUiType(os.path.join(
-            os.path.dirname(__file__), '../ui/AMapSettingWidget.ui'))
+            os.path.dirname(__file__), '../../ui/AMapSettingWidget.ui'))
         if generated_class is None or base_class is None:
             return None
 
@@ -86,7 +86,7 @@ class AMapBasemapProvider(AbstractBasemapProvider):
 
         self.setting_form.listWidget.setIconSize(QtCore.QSize(160, 160))
         for basemap_name in self.basemap_list:
-            icon = QtGui.QIcon(os.path.join(os.path.dirname(__file__), '../image/amap/%s.png' % basemap_name))
+            icon = QtGui.QIcon(os.path.join(os.path.dirname(__file__), '../../image/amap/%s.png' % basemap_name))
             self.setting_form.listWidget.addItem(QtWidgets.QListWidgetItem(icon, basemap_name))
         return self.setting_widget
 

@@ -34,7 +34,7 @@ from qgis.gui import QgsMapToolExtent
 from .geoviscloud_selected_area_drawer import SelectedAreaDrawer
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), '../ui/GeovisCloudImageryDockWidget.ui'))
+    os.path.dirname(__file__), '../../ui/GeovisCloudImageryDockWidget.ui'))
 
 class GeovisCloudImageryDockWidget(QDockWidget, FORM_CLASS):
     def __init__(self, iface, parent=None):
@@ -214,11 +214,9 @@ class GeovisCloudImageryDockWidget(QDockWidget, FORM_CLASS):
                 self.tr(u"Fail to parse results responding from Geovis cloud server.")
             )
 
-        if type(reply_json) is not dict:
-            QMessageBox.information(self,
-                                    self.tr(u"Geovis Search Error"),
-                                    self.tr(u"Your request to Geovis cloud server is unavailable."), QMessageBox.Ok)
+        if not self.__check_response_validation(reply_json):
             return
+
         """
         example of respond:
         {
@@ -289,11 +287,9 @@ class GeovisCloudImageryDockWidget(QDockWidget, FORM_CLASS):
                 self.tr(u"Fail to parse results responding from Geovis cloud server.")
             )
 
-        if type(reply_json) is not dict:
-            QMessageBox.information(self,
-                                    self.tr(u"Geovis Search Error"),
-                                    self.tr(u"Your request to Geovis cloud server is unavailable."), QMessageBox.Ok)
+        if not self.__check_response_validation(reply_json):
             return
+
         """
         example of respond:
         {
@@ -331,3 +327,21 @@ class GeovisCloudImageryDockWidget(QDockWidget, FORM_CLASS):
                 region_node.setData(0, self.__layer_name_item_role, node_text)
 
                 self.sr_imagery_root_node.addChild(region_node)
+
+    def __check_response_validation(self, resp_json) -> bool:
+        if type(resp_json) is not dict:
+            QMessageBox.warning(self,
+                                    self.tr(u"Geovis Response Error"),
+                                    self.tr(u"Your request to Geovis cloud server is unavailable."), QMessageBox.Ok)
+            return False
+
+        if "code" in resp_json.keys() and resp_json["code"] != 200:
+            QMessageBox.warning(self,
+                                    self.tr(u"Geovis Response Error"),
+                                    self.tr(u"Failed to retrieve data from Geovis cloud. Please check your token's validity and remaining balance"), QMessageBox.Ok)
+            return False
+
+        return True
+
+
+

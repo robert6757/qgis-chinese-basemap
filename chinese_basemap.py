@@ -27,7 +27,7 @@ from qgis.PyQt.QtWidgets import QAction, QToolBar
 
 from .resources import *
 import os.path
-from .main import AddLayerDlg
+from .main.add_layer_dlg import AddLayerDlg
 from .main.global_helper import GlobalHelper
 
 class ChineseBasemap():

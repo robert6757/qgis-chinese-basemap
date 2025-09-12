@@ -19,11 +19,10 @@
  *                                                                         *
  ***************************************************************************/
 """
-
-from .amap_basemap_provider import AMapBasemapProvider
-from .tencent_basemap_provider import TencentBasemapProvider
-from .geovisearth_basemap_provider import GeovisEarthBasemapProvider
-from .geoviscloud_basemap_provider import GeovisCloudBasemapProvider
+from .amap.amap_basemap_provider import AMapBasemapProvider
+from .tencent.tencent_basemap_provider import TencentBasemapProvider
+from .geovisearth.geovisearth_basemap_provider import GeovisEarthBasemapProvider
+from .geoviscloud.geoviscloud_basemap_provider import GeovisCloudBasemapProvider
 
 class BaseMapFactory:
 
