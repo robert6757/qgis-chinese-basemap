@@ -6,7 +6,7 @@
 name=Chinese Basemap
 qgisMinimumVersion=3.0
 description=This plugin provides multiple basemap datasource for China.
-version=0.1
+version=0.2
 author=phoenix-gis
 email=phoenixgis@sina.com
 
@@ -20,7 +20,14 @@ repository=https://github.com/robert6757/qgis-chinese-basemap
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-# changelog=
+changelog=Version 0.2 2025-09-12
+      * Add the JiLin-1 data source.
+      * Add the GEOVIS cloud, which supports historical imagery and super-resolution imagery.
+      * 添加吉林一号数据源。
+      * 添加星图云数据源，特别支持历史影像和超分影像。
+    Version 0.1 2025-09-02
+      * First version with support for AMap, GEOVIS Earth, and Tencent data sources.
+      * 插件首版本，支持高德地图、星图地球和腾讯地图数据源。
 
 # Tags are comma separated with spaces allowed
 tags=basemap,basemaps,raster,vector,datasource,wmts,wms,xyz

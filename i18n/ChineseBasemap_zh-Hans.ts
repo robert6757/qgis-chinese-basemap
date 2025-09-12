@@ -93,12 +93,12 @@
     <message>
         <location filename="../ui/GeovisCloudSettingWidget.ui" line="30"/>
         <source>Please provide your access token obtained from the Geovis Cloud website.</source>
-        <translation>请从星图云开发者平台获取数据访问Token。</translation>
+        <translation>请从星图云开放平台获取数据访问Token。</translation>
     </message>
     <message>
         <location filename="../ui/JiLin1SettingWidget.ui" line="35"/>
         <source>JiLin-1 provides various satellite imagery. To access the data, you should first register on the JiLin-1 website to obtain your TK and MK token. The TK serves as your private token, while the MK serves as a map token. Each MK token corresponds to a single map image.</source>
-        <translation type="unfinished">吉林一号提供多种卫星影像图。请从吉林一号官方网站获取访问参数TK和MK。其中TK是访问Token。MK是卫星影像图Token。每个MK对应一个单独的卫星影像图。</translation>
+        <translation>吉林一号提供多种卫星影像图。请从吉林一号官方网站获取访问参数TK和MK。其中TK是访问Token。MK是卫星影像图Token。每个MK对应一个单独的卫星影像图。</translation>
     </message>
     <message>
         <location filename="../ui/JiLin1SettingWidget.ui" line="47"/>
@@ -221,13 +221,15 @@
         <source>Tencent Map</source>
         <translation>腾讯地图</translation>
     </message>
-</context>
-<context>
-    <name>self.setting_widget</name>
     <message>
         <location filename="../main/jilin1/jilin1_basemap_provider.py" line="125"/>
         <source>Tip</source>
         <translation>提示</translation>
+    </message>
+    <message>
+        <location filename="../main/jilin1/jilin1_basemap_provider.py" line="103"/>
+        <source>Please input your TK.</source>
+        <translation>请输入你的TK。</translation>
     </message>
     <message>
         <location filename="../main/jilin1/jilin1_basemap_provider.py" line="110"/>
@@ -244,10 +246,33 @@
         <source>Please input the MK of imagery.</source>
         <translation>请输入影像MK。</translation>
     </message>
+</context>
+<context>
+    <name>self.setting_widget</name>
+    <message>
+        <location filename="../main/jilin1/jilin1_basemap_provider.py" line="125"/>
+        <source>Tip</source>
+        <translation type="obsolete">提示</translation>
+    </message>
+    <message>
+        <location filename="../main/jilin1/jilin1_basemap_provider.py" line="110"/>
+        <source>Please select an imagery from table.</source>
+        <translation type="obsolete">请从表格中选择一个影像。</translation>
+    </message>
+    <message>
+        <location filename="../main/jilin1/jilin1_basemap_provider.py" line="118"/>
+        <source>Please input the name of imagery.</source>
+        <translation type="obsolete">请输入影像名称。</translation>
+    </message>
+    <message>
+        <location filename="../main/jilin1/jilin1_basemap_provider.py" line="125"/>
+        <source>Please input the MK of imagery.</source>
+        <translation type="obsolete">请输入影像MK。</translation>
+    </message>
     <message>
         <location filename="../main/jilin1/jilin1_basemap_provider.py" line="103"/>
         <source>Please input your TK.</source>
-        <translation>请输入你的TK。</translation>
+        <translation type="obsolete">请输入你的TK。</translation>
     </message>
 </context>
 </TS>

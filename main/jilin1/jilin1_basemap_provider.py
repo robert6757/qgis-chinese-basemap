@@ -101,30 +101,30 @@ class JiLin1BasemapProvider(AbstractBasemapProvider):
         tk = self.setting_form.lineEdit.text()
         if len(tk) == 0:
             QMessageBox.information(self.setting_widget,
-                                    self.setting_widget.tr(u"Tip"),
-                                    self.setting_widget.tr(u"Please input your TK."), QMessageBox.Ok)
+                                    GlobalHelper.tr(u"Tip"),
+                                    GlobalHelper.tr(u"Please input your TK."), QMessageBox.Ok)
             return False
 
         selected_items = self.setting_form.tableWidget.selectedItems()
         if selected_items is None or len(selected_items) == 0:
             QMessageBox.information(self.setting_widget,
-                                    self.setting_widget.tr(u"Tip"),
-                                    self.setting_widget.tr(u"Please select an imagery from table."), QMessageBox.Ok)
+                                    GlobalHelper.tr(u"Tip"),
+                                    GlobalHelper.tr(u"Please select an imagery from table."), QMessageBox.Ok)
             return False
 
         row_i = selected_items[0].row()
         name_table_item = self.setting_form.tableWidget.item(row_i, 0)
         if name_table_item is None or len(name_table_item.text()) == 0:
             QMessageBox.information(self.setting_widget,
-                                    self.setting_widget.tr(u"Tip"),
-                                    self.setting_widget.tr(u"Please input the name of imagery."), QMessageBox.Ok)
+                                    GlobalHelper.tr(u"Tip"),
+                                    GlobalHelper.tr(u"Please input the name of imagery."), QMessageBox.Ok)
             return False
 
         mk_table_item = self.setting_form.tableWidget.item(row_i, 1)
         if mk_table_item is None or len(mk_table_item.text()) == 0:
             QMessageBox.information(self.setting_widget,
-                                    self.setting_widget.tr(u"Tip"),
-                                    self.setting_widget.tr(u"Please input the MK of imagery."), QMessageBox.Ok)
+                                    GlobalHelper.tr(u"Tip"),
+                                    GlobalHelper.tr(u"Please input the MK of imagery."), QMessageBox.Ok)
             return False
 
         # add to map canvas

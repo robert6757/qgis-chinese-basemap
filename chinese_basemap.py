@@ -21,12 +21,19 @@
  *                                                                         *
  ***************************************************************************/
 """
+
+
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QToolBar
 
-from .resources import *
+# Initialize Qt resources from file resources_rc.py
+# Extend to load root directory.
+import sys
 import os.path
+sys.path.append(os.path.dirname(__file__))
+from .resources_rc import *
+
 from .main.add_layer_dlg import AddLayerDlg
 from .main.global_helper import GlobalHelper
 
