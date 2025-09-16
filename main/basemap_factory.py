@@ -24,6 +24,7 @@ from .tencent.tencent_basemap_provider import TencentBasemapProvider
 from .geovisearth.geovisearth_basemap_provider import GeovisEarthBasemapProvider
 from .geoviscloud.geoviscloud_basemap_provider import GeovisCloudBasemapProvider
 from .jilin1.jilin1_basemap_provider import JiLin1BasemapProvider
+from .aliyun.aliyun_basemap_provider import AliyunBasemapProvider
 
 class BaseMapFactory:
 
@@ -57,5 +58,11 @@ class BaseMapFactory:
     @staticmethod
     def create_jilin1_provider(iface):
         bp = JiLin1BasemapProvider()
+        bp.attach_iface(iface)
+        return bp
+
+    @staticmethod
+    def create_aliyun_provider(iface):
+        bp = AliyunBasemapProvider()
         bp.attach_iface(iface)
         return bp

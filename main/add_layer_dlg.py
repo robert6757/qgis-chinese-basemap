@@ -60,6 +60,9 @@ class AddLayerDlg(QtWidgets.QDialog, FORM_CLASS):
         # JiLin-1 Provider
         jilin1_provider = provider_fac.create_jilin1_provider(iface)
         self.__provider_pool[jilin1_provider.provider_name()] = jilin1_provider
+        # Aliyun Provider
+        aliyun_provider = provider_fac.create_aliyun_provider(iface)
+        self.__provider_pool[aliyun_provider.provider_name()] = aliyun_provider
 
         self.__build_list_by_provider_pool()
 
