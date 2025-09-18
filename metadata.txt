@@ -5,12 +5,13 @@
 [general]
 name=Chinese Basemap
 qgisMinimumVersion=3.0
-description=This plugin provides multiple basemap datasource for China.
-version=0.2
+description=This plugin provides a variety of Chinese basemap data sources.本插件提供多种中文底图数据源。
+version=0.3
 author=phoenix-gis
 email=phoenixgis@sina.com
 
-about=This plugin provides multiple basemap datasource for China.本插件提供多种中文底图数据源，包括高德地图、腾讯地图、星图地球等。
+about=This plugin provides a variety of Chinese basemap data sources, including AMap, Tencent Map, GEOVIS Earth, GEOVIS Cloud, JiLin-1 and TianDiTu. The available data types include satellite imagery, historical satellite imagery, super-resolution satellite imagery, vector basemaps (available in multiple display styles), and Chinese administrative boundaries.
+ 本插件提供多种中文底图数据源，包括高德地图、腾讯地图、星图地球、星图云、吉林一号、天地图。数据类型包括卫星影像、历史影像、高分影像、不同显示风格的矢量图、行政区划边界。
 
 tracker=https://www.phoenix-gis.cn/d/224-qgischa-jian-shi-yong-wen-ti-hui-zong
 repository=https://github.com/robert6757/qgis-chinese-basemap
@@ -20,7 +21,12 @@ repository=https://github.com/robert6757/qgis-chinese-basemap
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-changelog=Version 0.2 2025-09-12
+changelog=Version 0.3 2025-09-17
+      * Add the TianDiTu data source.
+      * Add China administrative boundary from Aliyun DataV website.
+      * 添加天地图数据源。
+      * 添加中国行政区划边界，源自阿里云数据可视化平台。
+    Version 0.2 2025-09-12
       * Add the JiLin-1 data source.
       * Add the GEOVIS cloud, which supports historical imagery and super-resolution imagery.
       * 添加吉林一号数据源。

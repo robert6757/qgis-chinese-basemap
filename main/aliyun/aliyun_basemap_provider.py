@@ -45,7 +45,7 @@ class AliyunBasemapProvider(AbstractBasemapProvider):
 
     def provider_name(self):
         """name of provider is shown on the list widget"""
-        return GlobalHelper.tr(u"Aliyun")
+        return GlobalHelper.tr(u"Aliyun DataV")
 
     def provider_icon(self):
         """icon of provider is shown on the list widget"""

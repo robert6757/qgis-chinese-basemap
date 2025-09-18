@@ -76,7 +76,7 @@
 <context>
     <name>Form</name>
     <message>
-        <location filename="../ui/GeovisEarthSettingWidget.ui" line="20"/>
+        <location filename="../ui/TianDiTuSettingWidget.ui" line="20"/>
         <source>Token:</source>
         <translation></translation>
     </message>
@@ -86,7 +86,7 @@
         <translation>从星图地球官方网站获取数据访问Token。</translation>
     </message>
     <message>
-        <location filename="../ui/JiLin1SettingWidget.ui" line="57"/>
+        <location filename="../ui/TianDiTuSettingWidget.ui" line="37"/>
         <source>Get Token</source>
         <translation>获取Token</translation>
     </message>
@@ -119,6 +119,26 @@
         <location filename="../ui/JiLin1SettingWidget.ui" line="138"/>
         <source>MK</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="../ui/AliyunSettingWidget.ui" line="35"/>
+        <source>China Administrative Divisions:</source>
+        <translation>中国行政区划边界：</translation>
+    </message>
+    <message>
+        <location filename="../ui/AliyunSettingWidget.ui" line="45"/>
+        <source>Enter keywords or adcode</source>
+        <translation>请输入关键词或城市编码</translation>
+    </message>
+    <message>
+        <location filename="../ui/AliyunSettingWidget.ui" line="67"/>
+        <source>The administrative boundary data uses the GCJ02 coordinate system. Therefore, you should use Amap as the basemap; otherwise, the boundary will be offset on the map.</source>
+        <translation>行政区划数据使用GCJ02坐标系（火星坐标系）。因此，请使用高德地图作为底图。使用其他底图，可能会导致位置偏移。</translation>
+    </message>
+    <message>
+        <location filename="../ui/TianDiTuSettingWidget.ui" line="30"/>
+        <source>Please provide your access token obtained from the TianDiTu website.</source>
+        <translation>请从天地图网站获取数据访问Token。</translation>
     </message>
 </context>
 <context>
@@ -182,12 +202,12 @@
         <translation>参考自SPOT-VEGETATION(植被指数数据集)</translation>
     </message>
     <message>
-        <location filename="../main/geovisearth/geovisearth_basemap_provider.py" line="115"/>
+        <location filename="../main/tianditu/tianditu_basemap_provider.py" line="106"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../main/geovisearth/geovisearth_basemap_provider.py" line="115"/>
+        <location filename="../main/tianditu/tianditu_basemap_provider.py" line="106"/>
         <source>Please enter a valid access token.</source>
         <translation>请输入合法的数据访问Token！</translation>
     </message>
@@ -245,6 +265,26 @@
         <location filename="../main/jilin1/jilin1_basemap_provider.py" line="125"/>
         <source>Please input the MK of imagery.</source>
         <translation>请输入影像MK。</translation>
+    </message>
+    <message>
+        <location filename="../main/aliyun/aliyun_basemap_provider.py" line="81"/>
+        <source>Fail to create {} vectorlayer from Aliyun.</source>
+        <translation>无法创建从阿里云获取的矢量图层：{}</translation>
+    </message>
+    <message>
+        <location filename="../main/tianditu/tianditu_basemap_provider.py" line="65"/>
+        <source>TianDiTu</source>
+        <translation>天地图</translation>
+    </message>
+    <message>
+        <location filename="../main/tianditu/tianditu_basemap_provider.py" line="254"/>
+        <source>Fail to create {} layer from TianDiTu.</source>
+        <translation>无法创建从天地图获取的图层：{}</translation>
+    </message>
+    <message>
+        <location filename="../main/aliyun/aliyun_basemap_provider.py" line="48"/>
+        <source>Aliyun DataV</source>
+        <translation>阿里云数据可视化平台</translation>
     </message>
 </context>
 <context>
