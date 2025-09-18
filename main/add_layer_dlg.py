@@ -66,6 +66,9 @@ class AddLayerDlg(QtWidgets.QDialog, FORM_CLASS):
         # TianDiTu Provider
         tianditu_provider = provider_fac.create_tianditu_provider(iface)
         self.__provider_pool[tianditu_provider.provider_name()] = tianditu_provider
+        # Grid-Mesh Provider
+        grid_mesh_provider = provider_fac.create_grid_mesh_provider(iface)
+        self.__provider_pool[grid_mesh_provider.provider_name()] = grid_mesh_provider
 
         self.__build_list_by_provider_pool()
 

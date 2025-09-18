@@ -26,6 +26,7 @@ from .geoviscloud.geoviscloud_basemap_provider import GeovisCloudBasemapProvider
 from .jilin1.jilin1_basemap_provider import JiLin1BasemapProvider
 from .aliyun.aliyun_basemap_provider import AliyunBasemapProvider
 from .tianditu.tianditu_basemap_provider import TianDiTuProvider
+from .gridmesh.grid_mesh_provider import GridMeshProvider
 
 class BaseMapFactory:
 
@@ -71,5 +72,11 @@ class BaseMapFactory:
     @staticmethod
     def create_tianditu_provider(iface):
         bp = TianDiTuProvider()
+        bp.attach_iface(iface)
+        return bp
+
+    @staticmethod
+    def create_grid_mesh_provider(iface):
+        bp = GridMeshProvider()
         bp.attach_iface(iface)
         return bp
