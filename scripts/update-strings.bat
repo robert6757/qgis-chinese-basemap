@@ -1,6 +1,8 @@
 @echo off
 setlocal enabledelayedexpansion
 
+set "MAIN_PYTHON=%~dp0../chinese_basemap.py"
+
 set "UI_DIR=%~dp0../ui"
 set "PYTHON_DIR=%~dp0../main"
 set "OUTPUT_TS=%~dp0../i18n/ChineseBasemap_zh-Hans.ts"
@@ -21,6 +23,6 @@ echo UI Files: %UI_FILES%
 echo Python Files: %PYTHON_FILES%
 
 :: exec pylupdate5
-pylupdate5 %PYTHON_FILES% %UI_FILES% -ts "%OUTPUT_TS%"
+pylupdate5 %MAIN_PYTHON% %PYTHON_FILES% %UI_FILES% -ts "%OUTPUT_TS%"
 
 endlocal

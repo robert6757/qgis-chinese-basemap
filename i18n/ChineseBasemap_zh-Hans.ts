@@ -37,7 +37,7 @@
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="../ui/AddLayerDlg.ui" line="136"/>
+        <location filename="../ui/AddLayerDlg.ui" line="139"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
@@ -285,6 +285,21 @@
         <location filename="../main/aliyun/aliyun_basemap_provider.py" line="48"/>
         <source>Aliyun DataV</source>
         <translation>阿里云数据可视化平台</translation>
+    </message>
+    <message>
+        <location filename="../chinese_basemap.py" line="139"/>
+        <source>Chinese Resource</source>
+        <translation>中文资源</translation>
+    </message>
+    <message>
+        <location filename="../chinese_basemap.py" line="85"/>
+        <source>Chinese Resource Toolbar</source>
+        <translation>中文资源工具栏</translation>
+    </message>
+    <message>
+        <location filename="../chinese_basemap.py" line="88"/>
+        <source>Chinese Basemap</source>
+        <translation>中文底图</translation>
     </message>
 </context>
 <context>
