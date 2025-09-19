@@ -30,6 +30,8 @@ from qgis.core import QgsProject, QgsSettings, QgsVectorLayer, QgsLineSymbol, Qg
 from ..abstract_basemap_provider import AbstractBasemapProvider
 from ..global_helper import GlobalHelper
 
+from .index_grid_generator import IndexGridGenerator
+
 class GridMeshProvider(AbstractBasemapProvider):
 
     def __init__(self):
@@ -77,16 +79,16 @@ class GridMeshProvider(AbstractBasemapProvider):
             self.setting_form.listWidget.addItem(QListWidgetItem(icon, grid_mesh_name))
 
         # the default is Index Grid(接图表).
-        self.setting_form.listWidget.setCurrentRow(1)
-        self.setting_form.stackedWidget.setCurrentIndex(1)
+        self.setting_form.listWidget.setCurrentRow(0)
+        self.setting_form.stackedWidget.setCurrentIndex(0)
 
         self.setting_form.cbIndexGridScale.addItem(GlobalHelper.tr("1:1,000,000"), 1000000)
         self.setting_form.cbIndexGridScale.addItem(GlobalHelper.tr("1:500,000"), 500000)
         self.setting_form.cbIndexGridScale.addItem(GlobalHelper.tr("1:250,000"), 250000)
         self.setting_form.cbIndexGridScale.addItem(GlobalHelper.tr("1:100,000"), 100000)
-        self.setting_form.cbIndexGridScale.addItem(GlobalHelper.tr("1:50,000"), 50000)
-        self.setting_form.cbIndexGridScale.addItem(GlobalHelper.tr("1:25,000"), 25000)
-        self.setting_form.cbIndexGridScale.addItem(GlobalHelper.tr("1:10,000"), 10000)
+        # self.setting_form.cbIndexGridScale.addItem(GlobalHelper.tr("1:50,000"), 50000)
+        # self.setting_form.cbIndexGridScale.addItem(GlobalHelper.tr("1:25,000"), 25000)
+        # self.setting_form.cbIndexGridScale.addItem(GlobalHelper.tr("1:10,000"), 10000)
         return self.setting_widget
 
     def add_basemap_to_qgis(self):
@@ -98,6 +100,9 @@ class GridMeshProvider(AbstractBasemapProvider):
         selected_grid_mesh_name = selected_items[0].text()
         if selected_grid_mesh_name == "经纬网":
             self.build_lon_lat_grid()
+        elif selected_grid_mesh_name == "接图表":
+            self.build_map_index_grid()
+
         return True
 
     def unload(self):
@@ -123,7 +128,7 @@ class GridMeshProvider(AbstractBasemapProvider):
             QMessageBox.warning(self.setting_widget, GlobalHelper.tr( "Warning"), GlobalHelper.tr( "Please enter a valid latitude interval."),QMessageBox.Ok)
             return False
 
-        layer = self.__create_vector_layer(GlobalHelper.tr("Latitude and Longitude Grid") + f"_{lon_interval}_{lat_interval}")
+        layer = self.__create_vector_layer(GlobalHelper.tr("Latitude and Longitude Grid") + f"_{lon_interval}_{lat_interval}", "LineString")
         layer.startEditing()
 
         # build longitude line
@@ -174,9 +179,33 @@ class GridMeshProvider(AbstractBasemapProvider):
         QgsProject.instance().addMapLayer(layer)
         return True
 
-    def __create_vector_layer(self, layer_name) -> QgsVectorLayer:
+    def build_map_index_grid(self) -> bool:
+        scale = self.setting_form.cbIndexGridScale.currentData()
+
+        layer = self.__create_vector_layer(GlobalHelper.tr("Map Index Grid") + f"_{scale}", "Polygon")
+        layer.startEditing()
+
+        igg = IndexGridGenerator()
+        geometry_array = igg.gen_geometry(scale)
+        if len(geometry_array) == 0:
+            return False
+
+        for geometry in geometry_array:
+            feature = QgsFeature()
+            feature.setGeometry(geometry["geometry"])
+            feature.setFields(self.layer_fields)
+
+            # set attribute
+            feature.setAttributes(["", geometry["text"]])
+
+            layer.addFeature(feature)
+
+        layer.commitChanges()
+        QgsProject.instance().addMapLayer(layer)
+        return True
+
+    def __create_vector_layer(self, layer_name, geometry_name) -> QgsVectorLayer:
         # specific vector parameters.
-        geometry_name = "LineString"
         crs_name = "EPSG:4326"
 
         # create vector layer using memory provider.
