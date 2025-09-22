@@ -519,17 +519,17 @@
     <message>
         <location filename="../main/gridmesh/grid_mesh_provider.py" line="297"/>
         <source>Please select a projected coordinate systems.</source>
-        <translation type="unfinished"></translation>
+        <translation>请选择投影坐标系。</translation>
     </message>
     <message>
         <location filename="../main/gridmesh/grid_mesh_provider.py" line="317"/>
         <source>Grid Mesh Error</source>
-        <translation type="unfinished"></translation>
+        <translation>地图网格错误</translation>
     </message>
     <message>
         <location filename="../main/gridmesh/grid_mesh_provider.py" line="317"/>
         <source>Fail to transform coordinate to </source>
-        <translation type="unfinished"></translation>
+        <translation>无法转换坐标到</translation>
     </message>
 </context>
 <context>
