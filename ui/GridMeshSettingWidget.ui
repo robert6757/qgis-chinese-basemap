@@ -45,7 +45,7 @@
       </sizepolicy>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="pageIndexGrid">
       <layout class="QGridLayout" name="gridLayout_3">
@@ -290,6 +290,10 @@
            <property name="text">
             <string/>
            </property>
+           <property name="icon">
+            <iconset resource="../resources.qrc">
+             <normaloff>:/plugins/chinesebasemap/icon/select.svg</normaloff>:/plugins/chinesebasemap/icon/select.svg</iconset>
+           </property>
           </widget>
          </item>
          <item>
@@ -299,6 +303,10 @@
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../resources.qrc">
+             <normaloff>:/plugins/chinesebasemap/icon/map.svg</normaloff>:/plugins/chinesebasemap/icon/map.svg</iconset>
            </property>
           </widget>
          </item>
@@ -323,6 +331,10 @@
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../resources.qrc">
+             <normaloff>:/plugins/chinesebasemap/icon/earth-grid.svg</normaloff>:/plugins/chinesebasemap/icon/earth-grid.svg</iconset>
            </property>
           </widget>
          </item>
@@ -440,7 +452,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
  <slots>
   <slot>handleUpdateToken()</slot>

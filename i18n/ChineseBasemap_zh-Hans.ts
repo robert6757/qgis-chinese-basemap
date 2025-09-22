@@ -140,6 +140,116 @@
         <source>Please provide your access token obtained from the TianDiTu website.</source>
         <translation>请从天地图网站获取数据访问Token。</translation>
     </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="80"/>
+        <source>Index Scale:</source>
+        <translation>比例尺：</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="123"/>
+        <source>30</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="130"/>
+        <source>Longitude Interval:</source>
+        <translation>经度间隔：</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="151"/>
+        <source>°</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="144"/>
+        <source>Latitude Interval:</source>
+        <translation>纬度间隔：</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="230"/>
+        <source>km</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="223"/>
+        <source>20</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="210"/>
+        <source>X Interval:</source>
+        <translation>X向间隔：</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="237"/>
+        <source>Y Interval:</source>
+        <translation>Y向间隔：</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="257"/>
+        <source>Grid Spacing:</source>
+        <translation>格网间隔：</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="281"/>
+        <source>Extent:</source>
+        <translation>范围：</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="288"/>
+        <source>Select an area by clicking and dragging on the map.</source>
+        <translation>在地图上拉框选择查询范围</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="302"/>
+        <source>Use the whole canvas area.</source>
+        <translation>使用视野范围</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="316"/>
+        <source>CRS:</source>
+        <translation>坐标系：</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="330"/>
+        <source>Change the CRS for drawing grid.</source>
+        <translation>修改网格坐标系</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="348"/>
+        <source>Left:</source>
+        <translation>左侧：</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="358"/>
+        <source>Right:</source>
+        <translation>右侧：</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="368"/>
+        <source>Top:</source>
+        <translation>顶部：</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="378"/>
+        <source>Bottom:</source>
+        <translation>底部：</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="409"/>
+        <source>Equator</source>
+        <translation>赤道</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="419"/>
+        <source>Tropical Lines</source>
+        <translation>南北回归线</translation>
+    </message>
+    <message>
+        <location filename="../ui/GridMeshSettingWidget.ui" line="429"/>
+        <source>Polar Circles</source>
+        <translation>南北极圈</translation>
+    </message>
 </context>
 <context>
     <name>GeovisCloudImageryDockWidget</name>
@@ -300,6 +410,126 @@
         <location filename="../chinese_basemap.py" line="88"/>
         <source>Chinese Basemap</source>
         <translation>中文底图</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="57"/>
+        <source>Grid Mesh</source>
+        <translation>地图网格</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="92"/>
+        <source>1:1,000,000</source>
+        <translation>1:100万</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="93"/>
+        <source>1:500,000</source>
+        <translation>1:50万</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="94"/>
+        <source>1:250,000</source>
+        <translation>1:25万</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="95"/>
+        <source>1:100,000</source>
+        <translation>1:10万</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="185"/>
+        <source>Please enter a valid longitude interval.</source>
+        <translation>请输出一个正确的经度间隔。</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="188"/>
+        <source>Please enter a valid latitude interval.</source>
+        <translation>请输入正确的纬度间隔。</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="195"/>
+        <source>Latitude and Longitude Grid</source>
+        <translation>经纬网</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="252"/>
+        <source>Map Index Grid</source>
+        <translation>接图表</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="276"/>
+        <source>Please enter a valid X interval.</source>
+        <translation>请输入一个正确的X向间隔。</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="280"/>
+        <source>Please enter a valid Y interval.</source>
+        <translation>请输入一个正确的Y向间隔。</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="287"/>
+        <source>Please enter a valid extent.</source>
+        <translation>请输入一个正确的范围。</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="327"/>
+        <source>Distance Grid</source>
+        <translation>方里网</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="330"/>
+        <source>Fail to create distance grid layer. CRS:</source>
+        <translation>无法创建方里网图层。坐标系：</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="345"/>
+        <source>Cannot generate a layer exceeding 1 million grids</source>
+        <translation>无法生成大于100万个网格的图层。</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="381"/>
+        <source>Major Latitude Lines</source>
+        <translation>重要纬线</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="401"/>
+        <source>Equator</source>
+        <translation>赤道</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="417"/>
+        <source>Tropic of Cancer</source>
+        <translation>北回归线</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="432"/>
+        <source>Tropic of Capricorn</source>
+        <translation>南回归线</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="448"/>
+        <source>Arctic Circle</source>
+        <translation>北极圈</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="463"/>
+        <source>Antarctic Circle</source>
+        <translation>南极圈</translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="297"/>
+        <source>Please select a projected coordinate systems.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="317"/>
+        <source>Grid Mesh Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main/gridmesh/grid_mesh_provider.py" line="317"/>
+        <source>Fail to transform coordinate to </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

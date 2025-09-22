@@ -26,7 +26,7 @@ from qgis.PyQt import uic
 from qgis.PyQt.QtCore import QSize, QVariant, Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox
-from qgis.core import QgsProject, QgsVectorLayer, QgsRectangle, QgsFields, QgsField, QgsFeature, QgsGeometry, QgsPointXY, QgsCoordinateTransform
+from qgis.core import QgsProject, QgsVectorLayer, QgsRectangle, QgsFields, QgsField, QgsFeature, QgsGeometry, QgsPointXY, QgsCoordinateTransform, QgsCsException
 from qgis.gui import QgsProjectionSelectionDialog, QgsMapToolExtent
 
 from ..abstract_basemap_provider import AbstractBasemapProvider
@@ -75,6 +75,7 @@ class GridMeshProvider(AbstractBasemapProvider):
         self.setting_form.toolButtonSelectBoundary.clicked.connect(self.handle_tool_button_select_boundary_clicked)
         self.setting_form.toolButtonCanvasBoundary.clicked.connect(self.handle_tool_button_canvas_boundary_clicked)
         self.setting_form.toolButtonSelectCRS.clicked.connect(self.handle_tool_button_select_crs_clicked)
+        self.setting_form.listWidget.itemDoubleClicked.connect(self.handle_item_double_clicked)
 
         self.select_area_tool = QgsMapToolExtent(self.iface.mapCanvas())
         self.select_area_tool.extentChanged.connect(self.handle_area_tool_capture)
@@ -135,6 +136,11 @@ class GridMeshProvider(AbstractBasemapProvider):
             self.setting_form.stackedWidget.setCurrentIndex(2)
         elif item.text() == "重要纬线":
             self.setting_form.stackedWidget.setCurrentIndex(3)
+
+    def handle_item_double_clicked(self, item : QListWidgetItem):
+        if self.add_basemap_to_qgis() is False:
+            return
+        self.setting_widget.parent().parent().close()
 
     def handle_tool_button_select_boundary_clicked(self):
         map_canvas = self.iface.mapCanvas()
@@ -287,6 +293,11 @@ class GridMeshProvider(AbstractBasemapProvider):
         y_interval = float(self.setting_form.lineEditYInterval.text()) * 1000
 
         crs = self.distance_grid_crs
+        if crs.isGeographic():
+            QMessageBox.warning(self.setting_widget, GlobalHelper.tr("Warning"),
+                                GlobalHelper.tr("Please select a projected coordinate systems."), QMessageBox.Ok)
+            return False
+
         current_project_crs = QgsProject.instance().crs()
         coord_trans = QgsCoordinateTransform(
             current_project_crs,
@@ -294,11 +305,20 @@ class GridMeshProvider(AbstractBasemapProvider):
             QgsProject.instance()
         )
 
-        # calculate extent in crs
-        left_top = QgsPointXY(float(self.setting_form.lineEditBoundaryLeft.text()), float(self.setting_form.lineEditBoundaryTop.text()))
-        left_top = coord_trans.transform(left_top)
-        right_bottom = QgsPointXY(float(self.setting_form.lineEditBoundaryRight.text()), float(self.setting_form.lineEditBoundaryBottom.text()))
-        right_bottom = coord_trans.transform(right_bottom)
+        try:
+            # calculate extent in crs
+            left_top = QgsPointXY(float(self.setting_form.lineEditBoundaryLeft.text()),
+                                  float(self.setting_form.lineEditBoundaryTop.text()))
+            left_top = coord_trans.transform(left_top)
+            right_bottom = QgsPointXY(float(self.setting_form.lineEditBoundaryRight.text()),
+                                      float(self.setting_form.lineEditBoundaryBottom.text()))
+            right_bottom = coord_trans.transform(right_bottom)
+        except QgsCsException:
+            self.iface.messageBar().pushWarning(
+                GlobalHelper.tr(u"Grid Mesh Error"),
+                GlobalHelper.tr(u"Fail to transform coordinate to ") + crs.authid()
+            )
+            return False
 
         layer_fields = QgsFields()
         layer_fields.append(QgsField("center_x", QVariant.Double))
@@ -320,6 +340,11 @@ class GridMeshProvider(AbstractBasemapProvider):
         # Calculate the count of rows and the count of columns.
         num_cols = math.ceil((right - left) / x_interval)
         num_rows = math.ceil((top - bottom) / y_interval)
+
+        if num_cols * num_rows > 1000000:
+            QMessageBox.warning(self.setting_widget, GlobalHelper.tr("Warning"),
+                                GlobalHelper.tr("Cannot generate a layer exceeding 1 million grids"), QMessageBox.Ok)
+            return False
 
         # generate cells.
         for row in range(num_rows):

@@ -6,12 +6,12 @@
 name=Chinese Basemap
 qgisMinimumVersion=3.0
 description=This plugin provides a variety of Chinese basemap data sources.本插件提供多种中文底图数据源。
-version=0.3
+version=0.4
 author=phoenix-gis
 email=phoenixgis@sina.com
 
-about=This plugin provides a variety of Chinese basemap data sources, including AMap, Tencent Map, GEOVIS Earth, GEOVIS Cloud, JiLin-1 and TianDiTu. The available data types include satellite imagery, historical satellite imagery, super-resolution satellite imagery, vector basemaps (available in multiple display styles), and Chinese administrative boundaries.
- 本插件提供多种中文底图数据源，包括高德地图、腾讯地图、星图地球、星图云、吉林一号、天地图。数据类型包括卫星影像、历史影像、高分影像、不同显示风格的矢量图、行政区划边界。
+about=This plugin provides a variety of Chinese basemap data sources, including AMap, Tencent Map, GEOVIS Earth, GEOVIS Cloud, JiLin-1 and TianDiTu. The available data types include satellite imagery, historical satellite imagery, super-resolution satellite imagery, vector basemaps (available in multiple display styles), Chinese administrative boundaries and common grid mesh of earth.
+ 本插件提供多种中文底图数据源，包括高德地图、腾讯地图、星图地球、星图云、吉林一号、天地图。数据类型包括卫星影像、历史影像、超分影像、不同显示风格的矢量图、行政区划边界、地图格网(经纬网、接图表、方里网、重要纬线)。
 
 tracker=https://www.phoenix-gis.cn/d/224-qgischa-jian-shi-yong-wen-ti-hui-zong
 repository=https://github.com/robert6757/qgis-chinese-basemap
@@ -21,7 +21,10 @@ repository=https://github.com/robert6757/qgis-chinese-basemap
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-changelog=Version 0.3 2025-09-17
+changelog=Version 0.4 2025-09-22
+      * Add common grid mesh of earth.
+      * 添加常用地图格网。
+      * Version 0.3 2025-09-17
       * Add the TianDiTu data source.
       * Add China administrative boundary from Aliyun DataV website.
       * 添加天地图数据源。
