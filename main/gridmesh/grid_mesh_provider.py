@@ -20,12 +20,14 @@
  ***************************************************************************/
 """
 import os
+import math
 
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import QSize, QVariant
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox
-from qgis.core import QgsProject, QgsSettings, QgsVectorLayer, QgsLineSymbol, QgsFields, QgsField, QgsFeature, QgsGeometry, QgsPointXY
+from qgis.core import QgsProject, QgsVectorLayer, QgsRectangle, QgsFields, QgsField, QgsFeature, QgsGeometry, QgsPointXY, QgsCoordinateTransform
+from qgis.gui import QgsProjectionSelectionDialog, QgsMapToolExtent
 
 from ..abstract_basemap_provider import AbstractBasemapProvider
 from ..global_helper import GlobalHelper
@@ -45,9 +47,7 @@ class GridMeshProvider(AbstractBasemapProvider):
         self.setting_widget = None
         self.iface = None
 
-        self.layer_fields = QgsFields()
-        self.layer_fields.append(QgsField("type", QVariant.String))
-        self.layer_fields.append(QgsField("value", QVariant.Double))
+        self.distance_grid_crs = None
 
     def attach_iface(self, iface):
         self.iface = iface
@@ -72,6 +72,12 @@ class GridMeshProvider(AbstractBasemapProvider):
         self.setting_form = generated_class()
         self.setting_form.setupUi(self.setting_widget)
         self.setting_form.listWidget.itemClicked.connect(self.handle_listwidget_item_clicked)
+        self.setting_form.toolButtonSelectBoundary.clicked.connect(self.handle_tool_button_select_boundary_clicked)
+        self.setting_form.toolButtonCanvasBoundary.clicked.connect(self.handle_tool_button_canvas_boundary_clicked)
+        self.setting_form.toolButtonSelectCRS.clicked.connect(self.handle_tool_button_select_crs_clicked)
+
+        self.select_area_tool = QgsMapToolExtent(self.iface.mapCanvas())
+        self.select_area_tool.extentChanged.connect(self.handle_area_tool_capture)
 
         self.setting_form.listWidget.setIconSize(QSize(160, 160))
         for grid_mesh_name in self.grid_mesh_list:
@@ -102,6 +108,8 @@ class GridMeshProvider(AbstractBasemapProvider):
             self.build_lon_lat_grid()
         elif selected_grid_mesh_name == "接图表":
             self.build_map_index_grid()
+        elif selected_grid_mesh_name == "方里网":
+            self.build_distance_grid()
 
         return True
 
@@ -114,9 +122,49 @@ class GridMeshProvider(AbstractBasemapProvider):
         elif item.text() == "经纬网":
             self.setting_form.stackedWidget.setCurrentIndex(1)
         elif item.text() == "方里网":
+            if QgsProject.instance() is not None:
+                # Retrieve the project's CRS
+                self.distance_grid_crs = QgsProject.instance().crs()
+                self.setting_form.lineEditCRS.setText(self.distance_grid_crs.authid() + " - " + self.distance_grid_crs.description())
             self.setting_form.stackedWidget.setCurrentIndex(2)
         elif item.text() == "重要纬线":
             self.setting_form.stackedWidget.setCurrentIndex(3)
+
+    def handle_tool_button_select_boundary_clicked(self):
+        map_canvas = self.iface.mapCanvas()
+        if not map_canvas:
+            return
+        map_canvas.setMapTool(self.select_area_tool)
+        self.setting_widget.parent().parent().hide()
+
+    def handle_area_tool_capture(self, extent : QgsRectangle):
+        self.setting_form.lineEditBoundaryLeft.setText(str(extent.xMinimum()))
+        self.setting_form.lineEditBoundaryRight.setText(str(extent.xMaximum()))
+        self.setting_form.lineEditBoundaryTop.setText(str(extent.yMaximum()))
+        self.setting_form.lineEditBoundaryBottom.setText(str(extent.yMinimum()))
+
+        # unset map tool
+        map_canvas = self.iface.mapCanvas()
+        map_canvas.unsetMapTool(self.select_area_tool)
+        self.setting_widget.parent().parent().show()
+
+    def handle_tool_button_canvas_boundary_clicked(self):
+        map_canvas = self.iface.mapCanvas()
+        if not map_canvas:
+            return
+        map_extent = map_canvas.extent()
+        self.setting_form.lineEditBoundaryLeft.setText(str(map_extent.xMinimum()))
+        self.setting_form.lineEditBoundaryRight.setText(str(map_extent.xMaximum()))
+        self.setting_form.lineEditBoundaryTop.setText(str(map_extent.yMaximum()))
+        self.setting_form.lineEditBoundaryBottom.setText(str(map_extent.yMinimum()))
+
+    def handle_tool_button_select_crs_clicked(self):
+        crs_selector_dlg = QgsProjectionSelectionDialog(self.setting_widget)
+        crs_selector_dlg.setCrs(self.distance_grid_crs)
+        if crs_selector_dlg.exec():
+            self.distance_grid_crs = crs_selector_dlg.crs()
+
+            self.setting_form.lineEditCRS.setText(self.distance_grid_crs.authid() + " - " + self.distance_grid_crs.description())
 
     def build_lon_lat_grid(self) -> bool:
         lon_interval = float(self.setting_form.lineEditLonInterval.text())
@@ -128,7 +176,11 @@ class GridMeshProvider(AbstractBasemapProvider):
             QMessageBox.warning(self.setting_widget, GlobalHelper.tr( "Warning"), GlobalHelper.tr( "Please enter a valid latitude interval."),QMessageBox.Ok)
             return False
 
-        layer = self.__create_vector_layer(GlobalHelper.tr("Latitude and Longitude Grid") + f"_{lon_interval}_{lat_interval}", "LineString")
+        layer_fields = QgsFields()
+        layer_fields.append(QgsField("type", QVariant.String))
+        layer_fields.append(QgsField("value", QVariant.Double))
+
+        layer = self.__create_vector_layer(GlobalHelper.tr("Latitude and Longitude Grid") + f"_{lon_interval}_{lat_interval}", "LineString", layer_fields)
         layer.startEditing()
 
         # build longitude line
@@ -144,7 +196,7 @@ class GridMeshProvider(AbstractBasemapProvider):
             # build feature
             feature = QgsFeature()
             feature.setGeometry(line_geometry)
-            feature.setFields(self.layer_fields)
+            feature.setFields(layer_fields)
 
             # set attribute
             feature.setAttributes(["longitude", lon])
@@ -166,7 +218,7 @@ class GridMeshProvider(AbstractBasemapProvider):
             # build feature
             feature = QgsFeature()
             feature.setGeometry(line_geometry)
-            feature.setFields(self.layer_fields)
+            feature.setFields(layer_fields)
 
             # set attribute
             feature.setAttributes(["latitude", lat])
@@ -182,7 +234,10 @@ class GridMeshProvider(AbstractBasemapProvider):
     def build_map_index_grid(self) -> bool:
         scale = self.setting_form.cbIndexGridScale.currentData()
 
-        layer = self.__create_vector_layer(GlobalHelper.tr("Map Index Grid") + f"_{scale}", "Polygon")
+        layer_fields = QgsFields()
+        layer_fields.append(QgsField("value", QVariant.String))
+
+        layer = self.__create_vector_layer(GlobalHelper.tr("Map Index Grid") + f"_{scale}", "Polygon", layer_fields)
         layer.startEditing()
 
         igg = IndexGridGenerator()
@@ -193,10 +248,10 @@ class GridMeshProvider(AbstractBasemapProvider):
         for geometry in geometry_array:
             feature = QgsFeature()
             feature.setGeometry(geometry["geometry"])
-            feature.setFields(self.layer_fields)
+            feature.setFields(layer_fields)
 
             # set attribute
-            feature.setAttributes(["", geometry["text"]])
+            feature.setAttributes([geometry["text"]])
 
             layer.addFeature(feature)
 
@@ -204,18 +259,95 @@ class GridMeshProvider(AbstractBasemapProvider):
         QgsProject.instance().addMapLayer(layer)
         return True
 
-    def __create_vector_layer(self, layer_name, geometry_name) -> QgsVectorLayer:
-        # specific vector parameters.
-        crs_name = "EPSG:4326"
+    def build_distance_grid(self) -> bool:
+        if len(self.setting_form.lineEditXInterval.text()) == 0 or float(self.setting_form.lineEditXInterval.text()) <= 0:
+            QMessageBox.warning(self.setting_widget, GlobalHelper.tr("Warning"),
+                                GlobalHelper.tr("Please enter a valid X interval."), QMessageBox.Ok)
+            return False
+        if len(self.setting_form.lineEditYInterval.text()) == 0 or float(self.setting_form.lineEditYInterval.text()) <= 0:
+            QMessageBox.warning(self.setting_widget, GlobalHelper.tr("Warning"),
+                                GlobalHelper.tr("Please enter a valid Y interval."), QMessageBox.Ok)
+            return False
+        if (len(self.setting_form.lineEditBoundaryLeft.text()) == 0 or
+                len(self.setting_form.lineEditBoundaryRight.text()) == 0 or
+                len(self.setting_form.lineEditBoundaryTop.text()) == 0 or
+                len(self.setting_form.lineEditBoundaryBottom.text()) == 0):
+            QMessageBox.warning(self.setting_widget, GlobalHelper.tr("Warning"),
+                                GlobalHelper.tr("Please enter a valid extent."), QMessageBox.Ok)
+            return False
 
+        # the unit is KM.
+        x_interval = float(self.setting_form.lineEditXInterval.text()) * 1000
+        y_interval = float(self.setting_form.lineEditYInterval.text()) * 1000
+
+        crs = self.distance_grid_crs
+        current_project_crs = QgsProject.instance().crs()
+        coord_trans = QgsCoordinateTransform(
+            current_project_crs,
+            crs,
+            QgsProject.instance()
+        )
+
+        # calculate extent in crs
+        left_top = QgsPointXY(float(self.setting_form.lineEditBoundaryLeft.text()), float(self.setting_form.lineEditBoundaryTop.text()))
+        left_top = coord_trans.transform(left_top)
+        right_bottom = QgsPointXY(float(self.setting_form.lineEditBoundaryRight.text()), float(self.setting_form.lineEditBoundaryBottom.text()))
+        right_bottom = coord_trans.transform(right_bottom)
+
+        layer_fields = QgsFields()
+        layer_fields.append(QgsField("center_x", QVariant.Double))
+        layer_fields.append(QgsField("center_y", QVariant.Double))
+
+        layer = self.__create_vector_layer(GlobalHelper.tr("Distance Grid") + f"_{x_interval}_{y_interval}",
+                                           "Polygon", fields=layer_fields, crs_name=crs.authid())
+        if not layer:
+            self.iface.messageBar().pushMessage(GlobalHelper.tr("Fail to create distance grid layer. CRS:") + crs.toProj())
+            return False
+        layer.startEditing()
+
+        # Check the boundary validity.
+        left = min(left_top.x(), right_bottom.x())
+        right = max(left_top.x(), right_bottom.x())
+        bottom = min(right_bottom.y(), left_top.y())
+        top = max(right_bottom.y(), left_top.y())
+
+        # Calculate the count of rows and the count of columns.
+        num_cols = math.ceil((right - left) / x_interval)
+        num_rows = math.ceil((top - bottom) / y_interval)
+
+        # generate cells.
+        for row in range(num_rows):
+            for col in range(num_cols):
+                # calculate the boundary of cell.
+                x_min = left + col * x_interval
+                x_max = x_min + x_interval
+                y_min = bottom + row * y_interval
+                y_max = y_min + y_interval
+
+                rect = QgsRectangle(x_min, y_min, x_max, y_max)
+                geometry = QgsGeometry.fromRect(rect)
+
+                # add new feature.
+                feature = QgsFeature()
+                feature.setGeometry(geometry)
+
+                feature.setFields(layer_fields)
+
+                # set attribute
+                center_x = (x_min + x_max) / 2.0
+                center_y = (y_min + y_max) / 2.0
+                feature.setAttributes([center_x,center_y])
+
+                layer.addFeature(feature)
+
+        layer.commitChanges()
+        QgsProject.instance().addMapLayer(layer)
+        return True
+
+    def __create_vector_layer(self, layer_name, geometry_name, fields, crs_name = 'EPSG:4326') -> QgsVectorLayer:
         # create vector layer using memory provider.
         layer = QgsVectorLayer(f"{geometry_name}?crs={crs_name}", layer_name, "memory")
-        layer.dataProvider().addAttributes(self.layer_fields)
+        layer.dataProvider().addAttributes(fields)
         layer.updateFields()
 
         return layer
-
-
-
-
-
