@@ -23,7 +23,7 @@ import os
 import math
 
 from qgis.PyQt import uic
-from qgis.PyQt.QtCore import QSize, QVariant
+from qgis.PyQt.QtCore import QSize, QVariant, Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox
 from qgis.core import QgsProject, QgsVectorLayer, QgsRectangle, QgsFields, QgsField, QgsFeature, QgsGeometry, QgsPointXY, QgsCoordinateTransform
@@ -103,13 +103,19 @@ class GridMeshProvider(AbstractBasemapProvider):
         if len(selected_items) == 0:
             return False
 
+        build_result = False
         selected_grid_mesh_name = selected_items[0].text()
         if selected_grid_mesh_name == "经纬网":
-            self.build_lon_lat_grid()
+            build_result = self.build_lon_lat_grid()
         elif selected_grid_mesh_name == "接图表":
-            self.build_map_index_grid()
+            build_result = self.build_map_index_grid()
         elif selected_grid_mesh_name == "方里网":
-            self.build_distance_grid()
+            build_result = self.build_distance_grid()
+        elif selected_grid_mesh_name == "重要纬线":
+            build_result = self.build_major_latitude_lines()
+
+        if not build_result:
+            return False
 
         return True
 
@@ -339,6 +345,98 @@ class GridMeshProvider(AbstractBasemapProvider):
                 feature.setAttributes([center_x,center_y])
 
                 layer.addFeature(feature)
+
+        layer.commitChanges()
+        QgsProject.instance().addMapLayer(layer)
+        return True
+
+    def build_major_latitude_lines(self):
+        layer_fields = QgsFields()
+        layer_fields.append(QgsField("type", QVariant.String))
+        layer = self.__create_vector_layer(GlobalHelper.tr("Major Latitude Lines"), "LineString", layer_fields)
+        layer.startEditing()
+
+        check_state = self.setting_form.cbEquator.checkState()
+
+        # build latitude line
+        if self.setting_form.cbEquator.checkState() == Qt.Checked:
+            qgspointxy_array = []
+            point_top = QgsPointXY(-180, 0)
+            point_bottom = QgsPointXY(180, 0)
+            qgspointxy_array.append(point_top)
+            qgspointxy_array.append(point_bottom)
+            line_geometry = QgsGeometry.fromPolylineXY(qgspointxy_array)
+
+            # build feature
+            feature = QgsFeature()
+            feature.setGeometry(line_geometry)
+            feature.setFields(layer_fields)
+
+            # set attribute
+            feature.setAttributes([GlobalHelper.tr("Equator")])
+            layer.addFeature(feature)
+
+        if self.setting_form.cbTropicalLines.checkState() == Qt.Checked:
+            qgspointxy_array = []
+            point_top = QgsPointXY(-180, 23.43)
+            point_bottom = QgsPointXY(180, 23.43)
+            qgspointxy_array.append(point_top)
+            qgspointxy_array.append(point_bottom)
+
+            # build feature
+            feature = QgsFeature()
+            feature.setGeometry(QgsGeometry.fromPolylineXY(qgspointxy_array))
+            feature.setFields(layer_fields)
+
+            # set attribute
+            feature.setAttributes([GlobalHelper.tr("Tropic of Cancer")])
+            layer.addFeature(feature)
+
+            qgspointxy_array = []
+            point_top = QgsPointXY(-180, -23.43)
+            point_bottom = QgsPointXY(180, -23.43)
+            qgspointxy_array.append(point_top)
+            qgspointxy_array.append(point_bottom)
+
+            # build feature
+            feature = QgsFeature()
+            feature.setGeometry(QgsGeometry.fromPolylineXY(qgspointxy_array))
+            feature.setFields(layer_fields)
+
+            # set attribute
+            feature.setAttributes([GlobalHelper.tr("Tropic of Capricorn")])
+            layer.addFeature(feature)
+
+        if self.setting_form.cbPolarCircles.checkState() == Qt.Checked:
+            qgspointxy_array = []
+            point_top = QgsPointXY(-180, 66.56667)
+            point_bottom = QgsPointXY(180, 66.56667)
+            qgspointxy_array.append(point_top)
+            qgspointxy_array.append(point_bottom)
+
+            # build feature
+            feature = QgsFeature()
+            feature.setGeometry(QgsGeometry.fromPolylineXY(qgspointxy_array))
+            feature.setFields(layer_fields)
+
+            # set attribute
+            feature.setAttributes([GlobalHelper.tr("Arctic Circle")])
+            layer.addFeature(feature)
+
+            qgspointxy_array = []
+            point_top = QgsPointXY(-180, -66.56667)
+            point_bottom = QgsPointXY(180, -66.56667)
+            qgspointxy_array.append(point_top)
+            qgspointxy_array.append(point_bottom)
+
+            # build feature
+            feature = QgsFeature()
+            feature.setGeometry(QgsGeometry.fromPolylineXY(qgspointxy_array))
+            feature.setFields(layer_fields)
+
+            # set attribute
+            feature.setAttributes([GlobalHelper.tr("Antarctic Circle")])
+            layer.addFeature(feature)
 
         layer.commitChanges()
         QgsProject.instance().addMapLayer(layer)

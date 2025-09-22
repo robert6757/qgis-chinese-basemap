@@ -45,7 +45,7 @@
       </sizepolicy>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="pageIndexGrid">
       <layout class="QGridLayout" name="gridLayout_3">
@@ -392,7 +392,7 @@
         <number>3</number>
        </property>
        <item row="0" column="0">
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="cbEquator">
          <property name="text">
           <string>Equator</string>
          </property>
@@ -402,7 +402,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QCheckBox" name="checkBox_2">
+        <widget class="QCheckBox" name="cbTropicalLines">
          <property name="text">
           <string>Tropical Lines</string>
          </property>
@@ -412,7 +412,7 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QCheckBox" name="checkBox_3">
+        <widget class="QCheckBox" name="cbPolarCircles">
          <property name="text">
           <string>Polar Circles</string>
          </property>
