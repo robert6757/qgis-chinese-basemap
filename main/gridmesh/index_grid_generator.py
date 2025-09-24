@@ -64,7 +64,6 @@ class IndexGridGenerator():
                                    12, 4,
                                    -180, 180, factor, letter_tag_band2[::-1])
 
-        # 第三纬度带: 76-88度
         # third band : 76~88° -76~-88°
         letter_tag_band3 = ["T", "U", "V"]
         self.process_latitude_band(geometry_results,

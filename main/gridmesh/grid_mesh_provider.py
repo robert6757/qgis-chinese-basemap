@@ -197,7 +197,7 @@ class GridMeshProvider(AbstractBasemapProvider):
 
         # build longitude line
         lon = -180
-        while lon < 180:
+        while lon <= 180:
             qgspointxy_array = []
             point_top = QgsPointXY(lon, -90)
             point_bottom = QgsPointXY(lon, 90)
@@ -219,7 +219,7 @@ class GridMeshProvider(AbstractBasemapProvider):
 
         # build latitude line
         lat = -90
-        while lat < 90:
+        while lat <= 90:
             qgspointxy_array = []
             point_top = QgsPointXY(-180, lat)
             point_bottom = QgsPointXY(180, lat)
