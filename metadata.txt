@@ -6,7 +6,7 @@
 name=Chinese Basemap
 qgisMinimumVersion=3.0
 description=This plugin provides a variety of Chinese basemap data sources.本插件提供多种中文底图数据源。
-version=0.4
+version=0.5
 author=phoenix-gis
 email=phoenixgis@sina.com
 
@@ -21,7 +21,10 @@ repository=https://github.com/robert6757/qgis-chinese-basemap
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-changelog=Version 0.4 2025-09-22
+changelog=Version 0.5 2025-11-27
+      * Update connection parameters.
+      * 更新连接参数
+      * Version 0.4 2025-09-22
       * Add common grid mesh of earth.
       * 添加常用地图格网。
       * Version 0.3 2025-09-17
@@ -41,7 +44,7 @@ changelog=Version 0.4 2025-09-22
 # Tags are comma separated with spaces allowed
 tags=basemap,basemaps,raster,vector,datasource,wmts,wms,xyz
 
-homepage=https://www.phoenix-gis.cn/
+homepage=https://www.phoenix-gis.cn/d/226-qgiszhong-wen-di-tu-cha-jian-zheng-shi-shang-xian
 category=Plugins
 icon=icon.png
 # experimental flag

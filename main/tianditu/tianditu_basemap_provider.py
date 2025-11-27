@@ -111,7 +111,7 @@ class TianDiTuProvider(AbstractBasemapProvider):
         basemap_name = selected_basemap_item.text()
         if basemap_name == "天地图-矢量底图":
             layer = QgsRasterLayer(
-                ('type=xyz&url=https://t{0}.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=vec%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&http-header:referer=https://www.tianditu.gov.cn/'
+                ('type=xyz&url=https://t{0}.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=vec%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&referer=https://www.tianditu.gov.cn/'
                  .format(random.randint(0,7), token)), basemap_name, 'wms')
             if not layer.isValid():
                 self.iface.messageBar().pushMessage(GlobalHelper.tr("Fail to create {} layer from TianDiTu.".format(basemap_name)))
@@ -119,7 +119,7 @@ class TianDiTuProvider(AbstractBasemapProvider):
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "天地图-矢量注记":
             layer = QgsRasterLayer(
-                ('type=xyz&url=https://t{0}.tianditu.gov.cn/cva_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=cva%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&http-header:referer=https://www.tianditu.gov.cn/'
+                ('type=xyz&url=https://t{0}.tianditu.gov.cn/cva_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=cva%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&referer=https://www.tianditu.gov.cn/'
                  .format(random.randint(0,7), token)), basemap_name, 'wms')
             if not layer.isValid():
                 self.iface.messageBar().pushMessage(GlobalHelper.tr("Fail to create {} layer from TianDiTu.".format(basemap_name)))
@@ -127,7 +127,7 @@ class TianDiTuProvider(AbstractBasemapProvider):
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "天地图-影像底图":
             layer = QgsRasterLayer(
-                ('type=xyz&url=https://t{0}.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=img%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&http-header:referer=https://www.tianditu.gov.cn/'
+                ('type=xyz&url=https://t{0}.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=img%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&referer=https://www.tianditu.gov.cn/'
                  .format(random.randint(0,7), token)), basemap_name, 'wms')
             if not layer.isValid():
                 self.iface.messageBar().pushMessage(GlobalHelper.tr("Fail to create {} layer from TianDiTu.".format(basemap_name)))
@@ -135,7 +135,7 @@ class TianDiTuProvider(AbstractBasemapProvider):
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "天地图-影像注记":
             layer = QgsRasterLayer(
-                ('type=xyz&url=https://t{0}.tianditu.gov.cn/cia_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=cia%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&http-header:referer=https://www.tianditu.gov.cn/'
+                ('type=xyz&url=https://t{0}.tianditu.gov.cn/cia_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=cia%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&referer=https://www.tianditu.gov.cn/'
                  .format(random.randint(0,7), token)), basemap_name, 'wms')
             if not layer.isValid():
                 self.iface.messageBar().pushMessage(GlobalHelper.tr("Fail to create {} layer from TianDiTu.".format(basemap_name)))
@@ -143,7 +143,7 @@ class TianDiTuProvider(AbstractBasemapProvider):
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "天地图-地形晕渲":
             layer = QgsRasterLayer(
-                ('type=xyz&url=https://t{0}.tianditu.gov.cn/ter_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=ter%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&http-header:referer=https://www.tianditu.gov.cn/'
+                ('type=xyz&url=https://t{0}.tianditu.gov.cn/ter_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=ter%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&referer=https://www.tianditu.gov.cn/'
                  .format(random.randint(0,7), token)), basemap_name, 'wms')
             if not layer.isValid():
                 self.iface.messageBar().pushMessage(GlobalHelper.tr("Fail to create {} layer from TianDiTu.".format(basemap_name)))
@@ -151,7 +151,7 @@ class TianDiTuProvider(AbstractBasemapProvider):
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "天地图-地形注记":
             layer = QgsRasterLayer(
-                ('type=xyz&url=https://t{0}.tianditu.gov.cn/cta_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=cta%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&http-header:referer=https://www.tianditu.gov.cn/'
+                ('type=xyz&url=https://t{0}.tianditu.gov.cn/cta_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=cta%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&referer=https://www.tianditu.gov.cn/'
                  .format(random.randint(0,7), token)), basemap_name, 'wms')
             if not layer.isValid():
                 self.iface.messageBar().pushMessage(GlobalHelper.tr("Fail to create {} layer from TianDiTu.".format(basemap_name)))
@@ -159,7 +159,7 @@ class TianDiTuProvider(AbstractBasemapProvider):
             QgsProject.instance().addMapLayer(layer)
         elif basemap_name == "天地图-全球境界":
             layer = QgsRasterLayer(
-                ('type=xyz&url=https://t{0}.tianditu.gov.cn/ibo_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=ibo%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&http-header:referer=https://www.tianditu.gov.cn/'
+                ('type=xyz&url=https://t{0}.tianditu.gov.cn/ibo_w/wmts?SERVICE=WMTS%26REQUEST=GetTile%26VERSION=1.0.0%26LAYER=ibo%26STYLE=default%26TILEMATRIXSET=w%26FORMAT=tiles%26TileCol=%7Bx%7D%26TileRow=%7By%7D%26TileMatrix=%7Bz%7D%26tk={1}&zmin=1&zmax=18&referer=https://www.tianditu.gov.cn/'
                  .format(random.randint(0,7), token)), basemap_name, 'wms')
             if not layer.isValid():
                 self.iface.messageBar().pushMessage(GlobalHelper.tr("Fail to create {} layer from TianDiTu.".format(basemap_name)))
