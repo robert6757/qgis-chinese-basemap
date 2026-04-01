@@ -29,6 +29,7 @@ from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox
 
 from ..abstract_basemap_provider import AbstractBasemapProvider
 from ..global_helper import GlobalHelper
+from ..compat import *
 
 class JiLin1BasemapProvider(AbstractBasemapProvider):
 
@@ -102,14 +103,14 @@ class JiLin1BasemapProvider(AbstractBasemapProvider):
         if len(tk) == 0:
             QMessageBox.information(self.setting_widget,
                                     GlobalHelper.tr(u"Tip"),
-                                    GlobalHelper.tr(u"Please input your TK."), QMessageBox.Ok)
+                                    GlobalHelper.tr(u"Please input your TK."), QMessageBoxOk)
             return False
 
         selected_items = self.setting_form.tableWidget.selectedItems()
         if selected_items is None or len(selected_items) == 0:
             QMessageBox.information(self.setting_widget,
                                     GlobalHelper.tr(u"Tip"),
-                                    GlobalHelper.tr(u"Please select an imagery from table."), QMessageBox.Ok)
+                                    GlobalHelper.tr(u"Please select an imagery from table."), QMessageBoxOk)
             return False
 
         row_i = selected_items[0].row()
@@ -117,14 +118,14 @@ class JiLin1BasemapProvider(AbstractBasemapProvider):
         if name_table_item is None or len(name_table_item.text()) == 0:
             QMessageBox.information(self.setting_widget,
                                     GlobalHelper.tr(u"Tip"),
-                                    GlobalHelper.tr(u"Please input the name of imagery."), QMessageBox.Ok)
+                                    GlobalHelper.tr(u"Please input the name of imagery."), QMessageBoxOk)
             return False
 
         mk_table_item = self.setting_form.tableWidget.item(row_i, 1)
         if mk_table_item is None or len(mk_table_item.text()) == 0:
             QMessageBox.information(self.setting_widget,
                                     GlobalHelper.tr(u"Tip"),
-                                    GlobalHelper.tr(u"Please input the MK of imagery."), QMessageBox.Ok)
+                                    GlobalHelper.tr(u"Please input the MK of imagery."), QMessageBoxOk)
             return False
 
         # add to map canvas

@@ -31,6 +31,7 @@ from qgis.core import QgsProject, QgsRasterLayer, QgsSettings
 from ..abstract_basemap_provider import AbstractBasemapProvider
 from ..global_helper import GlobalHelper
 from .geoviscloud_imagery_dockwidget import GeovisCloudImageryDockWidget
+from ..compat import *
 
 class GeovisCloudBasemapProvider(AbstractBasemapProvider):
 
@@ -111,7 +112,7 @@ class GeovisCloudBasemapProvider(AbstractBasemapProvider):
         gSetting = QgsSettings()
         token = gSetting.value(self.__token_tag)
         if token is None or len(token) == 0:
-            QtWidgets.QMessageBox.warning(self.setting_widget, GlobalHelper.tr( "Warning"), GlobalHelper.tr( "Please enter a valid access token."),QtWidgets.QMessageBox.Ok)
+            QtWidgets.QMessageBox.warning(self.setting_widget, GlobalHelper.tr( "Warning"), GlobalHelper.tr( "Please enter a valid access token."), QMessageBoxOk)
             return False
 
         basemap_name = selected_basemap_item.text()
@@ -172,7 +173,7 @@ class GeovisCloudBasemapProvider(AbstractBasemapProvider):
     def __show_imagery_selector_dockwidget(self):
         if self.imagery_dockwidget is None:
             self.imagery_dockwidget = GeovisCloudImageryDockWidget(self.iface)
-            self.iface.addDockWidget(QtCore.Qt.LeftDockWidgetArea, self.imagery_dockwidget)
+            self.iface.addDockWidget(LeftDockWidgetArea, self.imagery_dockwidget)
 
         gSetting = QgsSettings()
         token = gSetting.value(self.__token_tag)

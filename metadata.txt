@@ -5,8 +5,9 @@
 [general]
 name=Chinese Basemap
 qgisMinimumVersion=3.0
+qgisMaximumVersion=4.99
 description=This plugin provides a variety of Chinese basemap data sources.本插件提供多种中文底图数据源。
-version=0.5
+version=0.6
 author=phoenix-gis
 email=phoenixgis@sina.com
 
@@ -21,13 +22,16 @@ repository=https://github.com/robert6757/qgis-chinese-basemap
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-changelog=Version 0.5 2025-11-27
+changelog=Version 0.6 2026-04-01
+      * Compatible with both Qt5 and Qt6.
+      * 同时支持Qt5和Qt6
+    Version 0.5 2025-11-27
       * Update connection parameters.
       * 更新连接参数
-      * Version 0.4 2025-09-22
+    Version 0.4 2025-09-22
       * Add common grid mesh of earth.
       * 添加常用地图格网。
-      * Version 0.3 2025-09-17
+    Version 0.3 2025-09-17
       * Add the TianDiTu data source.
       * Add China administrative boundary from Aliyun DataV website.
       * 添加天地图数据源。

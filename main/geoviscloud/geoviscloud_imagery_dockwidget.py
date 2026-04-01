@@ -32,6 +32,7 @@ from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
 from qgis.core import QgsProject, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsNetworkAccessManager, QgsRectangle, QgsRasterLayer, QgsPointXY
 from qgis.gui import QgsMapToolExtent
 from .geoviscloud_selected_area_drawer import SelectedAreaDrawer
+from ..compat import *
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), '../../ui/GeovisCloudImageryDockWidget.ui'))
@@ -98,7 +99,7 @@ class GeovisCloudImageryDockWidget(QDockWidget, FORM_CLASS):
         if len(selected_items) == 0:
             QMessageBox.information(self,
                                     self.tr(u"Tip"),
-                                    self.tr(u"Please select the imagery node."), QMessageBox.Ok)
+                                    self.tr(u"Please select the imagery node."), QMessageBoxOk)
             return
 
         selected_item = selected_items[0]
@@ -107,7 +108,7 @@ class GeovisCloudImageryDockWidget(QDockWidget, FORM_CLASS):
         if imagery_params is None or layer_name is None:
             QMessageBox.information(self,
                                     self.tr(u"Tip"),
-                                    self.tr(u"Please select the imagery node."), QMessageBox.Ok)
+                                    self.tr(u"Please select the imagery node."), QMessageBoxOk)
             return
 
         """
@@ -204,7 +205,7 @@ class GeovisCloudImageryDockWidget(QDockWidget, FORM_CLASS):
         url.setQuery(url_query)
         request = QNetworkRequest(url)
         reply = self.network_manager.blockingGet(request)
-        if reply.error() != QNetworkReply.NoError:
+        if reply.error() != NoError:
             return
         try:
             reply_json = json.loads(reply.content().data())
@@ -277,7 +278,7 @@ class GeovisCloudImageryDockWidget(QDockWidget, FORM_CLASS):
         url.setQuery(url_query)
         request = QNetworkRequest(url)
         reply = self.network_manager.blockingGet(request)
-        if reply.error() != QNetworkReply.NoError:
+        if reply.error() != NoError:
             return
         try:
             reply_json = json.loads(reply.content().data())
@@ -332,13 +333,13 @@ class GeovisCloudImageryDockWidget(QDockWidget, FORM_CLASS):
         if type(resp_json) is not dict:
             QMessageBox.warning(self,
                                     header,
-                                    self.tr(u"Your request to Geovis cloud server is unavailable."), QMessageBox.Ok)
+                                    self.tr(u"Your request to Geovis cloud server is unavailable."), QMessageBoxOk)
             return False
 
         if "code" in resp_json.keys() and resp_json["code"] != 200:
             QMessageBox.warning(self,
                                     header,
-                                    self.tr(u"Failed to retrieve data from Geovis cloud. Please check your token's validity and remaining balance"), QMessageBox.Ok)
+                                    self.tr(u"Failed to retrieve data from Geovis cloud. Please check your token's validity and remaining balance"), QMessageBoxOk)
             return False
 
         return True

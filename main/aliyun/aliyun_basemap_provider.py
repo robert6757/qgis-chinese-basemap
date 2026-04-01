@@ -29,6 +29,7 @@ from qgis.core import QgsProject, QgsVectorLayer
 from .region_dictionary import RegionDictionary
 from ..abstract_basemap_provider import AbstractBasemapProvider
 from ..global_helper import GlobalHelper
+from ..compat import *
 
 class AliyunBasemapProvider(AbstractBasemapProvider):
 
@@ -115,7 +116,7 @@ class AliyunBasemapProvider(AbstractBasemapProvider):
         return False
 
     def init_tree(self):
-        self.setting_form.treeWidget.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.setting_form.treeWidget.header().setSectionResizeMode(ResizeToContents)
         dic_data = RegionDictionary.get_json()
 
         self.init_tree_i(dic_data, None)

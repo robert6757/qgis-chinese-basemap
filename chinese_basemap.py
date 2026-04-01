@@ -26,13 +26,18 @@
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QToolBar
+from .main.compat import *
 
 # Initialize Qt resources from file resources_rc.py
 # Extend to load root directory.
 import sys
 import os.path
 sys.path.append(os.path.dirname(__file__))
-from .resources_rc import *
+
+if IS_QT5:
+    from .resources_rc import *
+if IS_QT6:
+    from .resources_rc_qt6 import *
 
 from .main.add_layer_dlg import AddLayerDlg
 from .main.global_helper import GlobalHelper
@@ -160,7 +165,7 @@ class ChineseBasemap():
         # show the dialog
         self.maindlg.show()
         # Run the dialog event loop
-        result = self.maindlg.exec_()
+        result = self.maindlg.exec()
         # See if OK was pressed
         if result:
             # Do something useful here - delete the line containing pass and

@@ -33,6 +33,7 @@ from ..abstract_basemap_provider import AbstractBasemapProvider
 from ..global_helper import GlobalHelper
 
 from .index_grid_generator import IndexGridGenerator
+from ..compat import *
 
 class GridMeshProvider(AbstractBasemapProvider):
 
@@ -182,10 +183,10 @@ class GridMeshProvider(AbstractBasemapProvider):
         lon_interval = float(self.setting_form.lineEditLonInterval.text())
         lat_interval = float(self.setting_form.lineEditLatInterval.text())
         if lon_interval == 0:
-            QMessageBox.warning(self.setting_widget, GlobalHelper.tr( "Warning"), GlobalHelper.tr( "Please enter a valid longitude interval."),QMessageBox.Ok)
+            QMessageBox.warning(self.setting_widget, GlobalHelper.tr( "Warning"), GlobalHelper.tr( "Please enter a valid longitude interval."), QMessageBoxOk)
             return False
         if lat_interval == 0:
-            QMessageBox.warning(self.setting_widget, GlobalHelper.tr( "Warning"), GlobalHelper.tr( "Please enter a valid latitude interval."),QMessageBox.Ok)
+            QMessageBox.warning(self.setting_widget, GlobalHelper.tr( "Warning"), GlobalHelper.tr( "Please enter a valid latitude interval."), QMessageBoxOk)
             return False
 
         layer_fields = QgsFields()
@@ -274,18 +275,18 @@ class GridMeshProvider(AbstractBasemapProvider):
     def build_distance_grid(self) -> bool:
         if len(self.setting_form.lineEditXInterval.text()) == 0 or float(self.setting_form.lineEditXInterval.text()) <= 0:
             QMessageBox.warning(self.setting_widget, GlobalHelper.tr("Warning"),
-                                GlobalHelper.tr("Please enter a valid X interval."), QMessageBox.Ok)
+                                GlobalHelper.tr("Please enter a valid X interval."), QMessageBoxOk)
             return False
         if len(self.setting_form.lineEditYInterval.text()) == 0 or float(self.setting_form.lineEditYInterval.text()) <= 0:
             QMessageBox.warning(self.setting_widget, GlobalHelper.tr("Warning"),
-                                GlobalHelper.tr("Please enter a valid Y interval."), QMessageBox.Ok)
+                                GlobalHelper.tr("Please enter a valid Y interval."), QMessageBoxOk)
             return False
         if (len(self.setting_form.lineEditBoundaryLeft.text()) == 0 or
                 len(self.setting_form.lineEditBoundaryRight.text()) == 0 or
                 len(self.setting_form.lineEditBoundaryTop.text()) == 0 or
                 len(self.setting_form.lineEditBoundaryBottom.text()) == 0):
             QMessageBox.warning(self.setting_widget, GlobalHelper.tr("Warning"),
-                                GlobalHelper.tr("Please enter a valid extent."), QMessageBox.Ok)
+                                GlobalHelper.tr("Please enter a valid extent."), QMessageBoxOk)
             return False
 
         # the unit is KM.
@@ -295,7 +296,7 @@ class GridMeshProvider(AbstractBasemapProvider):
         crs = self.distance_grid_crs
         if crs.isGeographic():
             QMessageBox.warning(self.setting_widget, GlobalHelper.tr("Warning"),
-                                GlobalHelper.tr("Please select a projected coordinate systems."), QMessageBox.Ok)
+                                GlobalHelper.tr("Please select a projected coordinate systems."), QMessageBoxOk)
             return False
 
         current_project_crs = QgsProject.instance().crs()
@@ -343,7 +344,7 @@ class GridMeshProvider(AbstractBasemapProvider):
 
         if num_cols * num_rows > 1000000:
             QMessageBox.warning(self.setting_widget, GlobalHelper.tr("Warning"),
-                                GlobalHelper.tr("Cannot generate a layer exceeding 1 million grids"), QMessageBox.Ok)
+                                GlobalHelper.tr("Cannot generate a layer exceeding 1 million grids"), QMessageBoxOk)
             return False
 
         # generate cells.
@@ -384,7 +385,7 @@ class GridMeshProvider(AbstractBasemapProvider):
         check_state = self.setting_form.cbEquator.checkState()
 
         # build latitude line
-        if self.setting_form.cbEquator.checkState() == Qt.Checked:
+        if self.setting_form.cbEquator.checkState() == Checked:
             qgspointxy_array = []
             point_top = QgsPointXY(-180, 0)
             point_bottom = QgsPointXY(180, 0)
@@ -401,7 +402,7 @@ class GridMeshProvider(AbstractBasemapProvider):
             feature.setAttributes([GlobalHelper.tr("Equator")])
             layer.addFeature(feature)
 
-        if self.setting_form.cbTropicalLines.checkState() == Qt.Checked:
+        if self.setting_form.cbTropicalLines.checkState() == Checked:
             qgspointxy_array = []
             point_top = QgsPointXY(-180, 23.43)
             point_bottom = QgsPointXY(180, 23.43)
@@ -432,7 +433,7 @@ class GridMeshProvider(AbstractBasemapProvider):
             feature.setAttributes([GlobalHelper.tr("Tropic of Capricorn")])
             layer.addFeature(feature)
 
-        if self.setting_form.cbPolarCircles.checkState() == Qt.Checked:
+        if self.setting_form.cbPolarCircles.checkState() == Checked:
             qgspointxy_array = []
             point_top = QgsPointXY(-180, 66.56667)
             point_bottom = QgsPointXY(180, 66.56667)
